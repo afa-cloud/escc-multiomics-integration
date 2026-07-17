@@ -58,36 +58,35 @@ work_checks_dir <- file.path(project_root, "_work", "checks")
 figure_specs <- data.frame(
   figure_id = paste0("Figure", 1:5),
   file_stem = c(
-    "escc_multiomics_figure1_driver_state_leakage_control",
+    "escc_multiomics_figure1_driver_state_representation_overlap",
     "escc_multiomics_figure2_ecms_continuous_states",
     "escc_multiomics_figure3_cao_cross_layer_calibration",
     "escc_multiomics_figure4_orthogonal_metabolome_microbiome",
     "escc_multiomics_figure5_integrated_candidate_network"
   ),
   width_mm = rep(183, 5),
-  height_mm = c(220, 190, 180, 220, 190),
+  height_mm = c(150, 155, 150, 175, 150),
   claim = c(
     paste(
-      "Only original driver-state edges stable across prespecified seeds and",
-      "event-view deletion remain within-TCGA T3 candidates; this is not",
-      "independent validation or causality."
+      "Nine event-state associations remain after representation-overlap",
+      "auditing, with the PIK3CA-Factor1 CNV family as the leading",
+      "within-TCGA validation priority."
     ),
     paste(
-      "MOFA factors provide continuous explanatory coordinates inside the",
-      "official ECMS anchor and do not support a new discrete subtype."
+      "Factor1 and Factor3 provide the most concentrated continuous-state",
+      "signal across the official ECMS anchor and ECMS-adjusted pathways."
     ),
     paste(
-      "Cao same-patient layers chiefly calibrate direction, missingness and",
-      "credible reverse boundaries; no candidate-layer FDR proves mechanism."
+      "Same-patient Cao data support a three-layer directional GNAS",
+      "hypothesis and a falsifiable ZNF750 reverse pattern."
     ),
     paste(
-      "PR001876 and PRJNA766558 contribute separate disease-context modules",
-      "but cannot form a microbiome-metabolite-host patient-level axis."
+      "PR001876 contains 83 rank-and-scale robust LC-MS features, while",
+      "paired tissue 16S supports diversity and genus-level ecological shifts."
     ),
     paste(
-      "The integrated network preserves robust within-source bridges,",
-      "conditional calibration, reverse boundaries and disconnected modules",
-      "without turning association lines into causal arrows."
+      "A PIK3CA-Factor1-centered network prioritizes a compact set of",
+      "within-source event-state hypotheses for independent validation."
     )
   ),
   archetype = c(
@@ -99,77 +98,75 @@ figure_specs <- data.frame(
   ),
   panel_source_contract = c(
     paste(
-      "a=script21 model plan; b=script21 factor alignment;",
-      "c=script21 edge stability and candidate summary;",
-      "d=script21 associations and its frozen original_edge_id/narrative roles"
+      "a=the nine retained script21 candidate-summary edges;",
+      "b=drop-both direction/magnitude/support retention;",
+      "c=PIK3CA CNV-RNA and Factor1 evidence"
     ),
     paste(
-      "a=ECMS probabilities/calibration; b-c=official78 probabilities plus",
-      "MOFA scores/factor associations; d=ECMS-adjusted Factor-PROGENy;",
-      "e=heterogeneity cluster evaluation and level-factor QC"
+      "a=official78 patient-level Factor1/Factor3 distributions;",
+      "b=ECMS eta-squared and q; c=ECMS-adjusted pathway effects;",
+      "d=compact continuous-axis evidence summary"
     ),
     paste(
-      "a-b=limited candidate summary; c-d=patient effects;",
-      "e=cross-layer and statistical support classes"
+      "a=GNAS patient-level WGBS/RNA/protein effects;",
+      "b=ZNF750 patient-level promoter/RNA effects;",
+      "c=two-gene layer-specific summary effects and q values"
     ),
     paste(
-      "a-c=PR001876 analysis inventory, candidates and sensitivities;",
-      "d-f=PRJNA766558 pipeline/alpha/beta/genus plus ANCOM-BC2 status;",
-      "modules unpaired"
+      "a=metabolite tier counts; b=top robust LC-MS effects;",
+      "c=paired alpha-diversity effects; d=top stable paired CLR taxa"
     ),
     paste(
-      "a=script20 T2/T3 association graph; b=all 12 strong-driver decisions;",
-      "c=all eight factor evidence states; d=disconnected module summaries"
+      "a=nine retained event-factor edges plus PIK3CA dosage and selected",
+      "Factor1/Factor3 pathway context; b=T4/T3 validation-priority ladder"
     )
   ),
   filter_contract = c(
     paste(
-      "all 41 original MOFA edges; all 3 seeds; baseline/drop views/gene drop;",
-      "four narrative genes may be N/A but are not silently removed"
+      "only countable_for_T3_T4=TRUE edges in the main visual; all 41 edges",
+      "and execution/alignment diagnostics remain in formal source tables"
     ),
     paste(
-      "patient association panels require in_official_78=TRUE and",
-      "eligible_for_primary_association=TRUE; hybrid94 excluded from primary"
+      "Factor1/Factor3 only; official78 primary patient distributions;",
+      "formal ECMS-adjusted T2 pathway edges; extension16 and k diagnostics omitted"
     ),
     paste(
-      "all 12 strong drivers; promoter primary/conditional coverage retained;",
-      "protein missing states retained"
+      "GNAS and ZNF750 only in the main visual; missing protein remains absent",
+      "rather than zero; all 12 candidates remain in formal source tables"
     ),
     paste(
-      "all three PR001876 analyses and zero-count tier cells; top two formal-rank",
-      "metabolites per analysis plus every run-order-confounded row; top eight",
-      "microbiome genera for display while all candidates remain in source tables"
+      "all tier counts; top ten robust LC-MS features by formal q/rank;",
+      "three paired alpha metrics and top eight stable paired CLR taxa"
     ),
     paste(
-      "all 12 strong drivers in decision matrix; network shows formal T3 main",
-      "axes, GNAS/ZNF750 T2 boundaries and top adjusted pathways for connected",
-      "factors; all 8 factors retained; orthogonal modules disconnected"
+      "nine retained event-factor edges; PIK3CA dosage; Factor1/Factor3",
+      "ECMS context and selected adjusted pathways; T4/T3 genes only"
     )
   ),
   statistical_unit = c(
-    "94 TCGA patients; model×seed alignment and original-edge×scenario retention",
+    "94 TCGA patients; retained original edge and three-seed drop-both retention",
     "78 official-anchor TCGA patients; factor/pathway association",
     "Cao patient pair and prespecified strong-driver candidate",
     "PR001876 analysis-feature and PRJNA766558 patient pair",
-    "formal evidence-ledger candidate/edge/module; no new inferential test"
+    "formal retained edge, pathway and candidate-priority rows; no new inferential test"
   ),
   sample_structure = c(
     "3 prespecified seeds; same TCGA patients; no independent validation",
-    "official78 primary; 16 GDC extension patients are conditional boundary only",
+    "official78 primary; extension16 excluded from the main positive visual",
     "9 paired WGBS; 10 paired RNA; mapped patient-level protein ratios",
     paste(
       "three PR001876 main analyses (AN004960/AN004962/AN004963), each 16 vs 16;",
       "96 analysis-sample keys; 21/41 published patient pairs available as an",
       "FFPE 16S reproducibility-only subset; no cross-dataset pairing"
     ),
-    "TCGA/Cao/PR001876/PRJNA evidence units remain distinct"
+    "TCGA event/factor/pathway rows remain source-internal"
   ),
   effect_definition = c(
-    "aligned event-factor effect; direction, >=50% magnitude and support retention rates",
-    "ECMS eta-squared; standardized adjusted beta; partial R-squared; cluster metrics",
+    "original event-factor effect; direction, >=50% magnitude and support retention rates",
+    "ECMS eta-squared; standardized adjusted beta; partial R-squared",
     "promoter median paired delta-beta; RNA limma logFC; protein median log2 T/N",
     "analysis-scale limma effect; paired alpha median difference; PERMANOVA R2; genus CLR difference",
-    "categorical T0-T4 adjudication and source-table association effects"
+    "categorical T3/T4 validation priority and source-table association effects"
   ),
   p_q_family = c(
     "per-model per-event-type BH family from script21; no manual stars",
@@ -179,11 +176,11 @@ figure_specs <- data.frame(
     "no new p/q; inherits formal source-table families and categorical tier rules"
   ),
   reviewer_risk = c(
-    "shared patients; three seeds; factor matching; positive-only display",
-    "shared RNA representation; extension labels; level-factor; subtype overclaim",
+    "shared patients; three seeds; positive-only main display; full audit is supplemental",
+    "shared RNA representation; continuous-state and subtype overclaim",
     "small n; candidate prescreen; missing protein; exact-event overclaim",
-    "no shared identifiers; GC run-order confounding; no public blank; 16S function",
-    "causal-looking network; duplicated evidence; T4 overclaim; hidden failed candidates"
+    "unverified metabolite labels; no public blank; unequal depth; 16S function",
+    "causal-looking network; duplicated evidence; T4 overclaim; compact selection"
   ),
   stringsAsFactors = FALSE
 )
@@ -440,7 +437,7 @@ figure_contract_path <- file.path(
   "escc_multiomics_final_figure_contract_20260712.md"
 )
 expected_figure_contract_sha256 <-
-  "304c340f2ca56b352ace58e97728b38b7f168aaa55a482259ec1ebbed9fb894f"
+  "10c968e11a997cef96a5ae71ecdf95cdf7887f749eb80835523eb7c2bce05a0f"
 fail_if(!file_exists(figure_contract_path),
         "冻结的 ESCC 最终图件契约缺失。")
 figure_contract_sha256 <- sha256_file(figure_contract_path)
@@ -717,13 +714,21 @@ if (self_test) {
     paste0("metabolite_analysis_", "inventory"),
     paste0("microbiome_sample_", "qc"),
     paste0("microbiome_", "ancombc2"),
-    paste0("Independent patient points; separate scales; no ", "connecting lines"),
+    paste0("Patient-level tumour-minus-paired-non-tumour ", "differences"),
     paste0("effect_", "direction"),
     paste0("FFPE low ", "biomass; contamination unresolved"),
     paste0("reproducibility-only ", "subset"),
     paste0("--finalize-visual-", "qa="),
     paste0("passed_reopened_", "review"),
-    paste0("qa_", "sha256")
+    paste0("qa_", "sha256"),
+    paste0("build_figure1_", "positive"),
+    paste0("build_figure2_", "positive"),
+    paste0("build_figure3_", "positive"),
+    paste0("build_figure4_", "positive"),
+    paste0("build_figure5_", "positive"),
+    paste0("Representation-overlap-audited ", "event–state bridges"),
+    paste0("83 robust LC-MS ", "analysis-features"),
+    paste0("PIK3CA leads the seven-gene T3/T4 ", "validation set")
   )
   fail_if(any(!vapply(
     required_contract_tokens,
@@ -1302,7 +1307,7 @@ validate_semantics <- function(x, families) {
   )]
   strong <- drivers[decision == "strong_patient_level_candidate"]
   fail_if(nrow(strong) != 12L || uniqueN(strong$gene_name) != 12L,
-          "Figure 5 决策矩阵必须完整保留 12 个 strong drivers。")
+          "正式 integrated-driver 源表必须完整保留 12 个 strong drivers。")
   fail_if(any(strong$cross_cohort_patient_link_created) ||
             any(strong$exact_independent_validation_present),
           "整合 driver 出现伪造跨队列患者连接或精确独立验证。")
@@ -3402,14 +3407,1170 @@ build_figure5 <- function(x) {
     theme(plot.tag = element_text(size = 8, face = "bold", family = font_family))
 }
 
+# Positive-story main figures. The full failure matrices and execution diagnostics
+# remain auditable in the formal source tables; these builders only change the
+# manuscript-facing visual hierarchy and never recompute upstream inference.
+build_figure1_positive <- function(x) {
+  retained <- copy(x$leakage_candidate_summary)[countable_for_T3_T4 == TRUE]
+  fail_if(nrow(retained) != 9L || uniqueN(retained$original_edge_id) != 9L,
+          "Figure 1 阳性主视觉必须恰好包含 9 条保留 event-state 边。")
+  fail_if(any(retained$reference_factor == "Factor4") ||
+            any(!retained$leakage_gate_pass),
+          "Figure 1 阳性主视觉混入 Factor4 或未通过泄漏门禁的边。")
+
+  retained[, event_label := fcase(
+    event_type == "relative_cnv", "relative CNV",
+    event_type == "amplification", "amplification",
+    event_type == "mutation", "mutation",
+    default = gsub("_", " ", event_type)
+  )]
+  retained[, effect_direction := fifelse(
+    original_effect >= 0, "positive", "negative"
+  )]
+  retained[, edge_label := paste0(
+    gene_name, " · ", event_label, " → ", reference_factor,
+    " · q=", format_q(original_q_value)
+  )]
+  edge_order <- retained[order(-abs(original_effect)), edge_label]
+  retained[, edge_label := factor(edge_label, levels = rev(edge_order))]
+
+  sign_palette <- c(
+    positive = palette_contract[["signal_blue"]],
+    negative = palette_contract[["accent_red"]]
+  )
+  sign_shapes <- c(positive = 16, negative = 17)
+  p_a <- ggplot(
+    retained,
+    aes(x = original_effect, y = edge_label, colour = effect_direction)
+  ) +
+    geom_vline(xintercept = 0, colour = "#AEB3B8", linewidth = 0.30) +
+    geom_segment(
+      aes(x = 0, xend = original_effect, yend = edge_label),
+      linewidth = 0.55
+    ) +
+    geom_point(aes(shape = effect_direction), size = 2.15) +
+    geom_point(
+      data = retained[gene_name == "PIK3CA"],
+      shape = 21, size = 3.15, fill = NA, colour = "#1F1F1F",
+      stroke = 0.65
+    ) +
+    scale_colour_manual(values = sign_palette) +
+    scale_shape_manual(values = sign_shapes) +
+    coord_cartesian(xlim = c(-1.05, 0.86), clip = "off") +
+    labs(
+      title = "Nine retained event–state associations",
+      subtitle = "PIK3CA–Factor1 CNV-family edges are double outlined",
+      x = "Original source-table association effect", y = NULL,
+      colour = "Direction", shape = "Direction"
+    ) +
+    theme_nature_contract() +
+    theme(
+      legend.position = "bottom",
+      axis.text.y = element_text(size = 5.45),
+      plot.margin = margin(2.2, 2.2, 2.2, 3.5, unit = "mm")
+    ) +
+    guides(colour = "none", shape = guide_legend(nrow = 1))
+
+  retention_columns <- c(
+    "drop_both_direction_retention_rate",
+    "drop_both_magnitude_retention_rate",
+    "drop_both_gate_retention_rate"
+  )
+  retained[, (retention_columns) := lapply(.SD, as.numeric),
+           .SDcols = retention_columns]
+  retention <- melt(
+    retained,
+    id.vars = c("original_edge_id", "edge_label", "planned_seed_count"),
+    measure.vars = retention_columns,
+    variable.name = "retention_metric", value.name = "retention_rate"
+  )
+  retention[, retention_metric := factor(
+    retention_metric,
+    levels = c(
+      "drop_both_direction_retention_rate",
+      "drop_both_magnitude_retention_rate",
+      "drop_both_gate_retention_rate"
+    ),
+    labels = c("Direction", "≥50% magnitude", "Support")
+  )]
+  retention[, retained_seed_label := paste0(
+    round(retention_rate * planned_seed_count), "/", planned_seed_count
+  )]
+  p_b <- ggplot(
+    retention,
+    aes(x = retention_metric, y = edge_label, fill = retention_rate)
+  ) +
+    geom_tile(colour = "white", linewidth = 0.35) +
+    geom_text(
+      aes(label = retained_seed_label), family = font_family, size = 1.85,
+      colour = "#202428"
+    ) +
+    scale_fill_gradient(
+      low = "#E3E7EA", high = palette_contract[["signal_blue"]],
+      limits = c(0, 1), breaks = c(2 / 3, 1),
+      labels = c("2/3", "3/3")
+    ) +
+    labs(
+      title = "Three-seed drop-both retention",
+      subtitle = "Direction, magnitude and inferential support",
+      x = NULL, y = NULL, fill = "Rate"
+    ) +
+    theme_nature_contract() +
+    theme(
+      axis.text.x = element_text(angle = 25, hjust = 1),
+      axis.text.y = element_blank(), axis.ticks.y = element_blank(),
+      axis.line = element_blank(), legend.position = "bottom"
+    )
+
+  pik_driver <- copy(x$integrated_drivers)[
+    decision == "strong_patient_level_candidate" & gene_name == "PIK3CA"
+  ]
+  fail_if(nrow(pik_driver) != 1L ||
+            anyNA(pik_driver[, .(
+              spearman_rho_relative_cnv, q_relative_cnv
+            )]),
+          "Figure 1 缺少唯一 PIK3CA CNV–RNA dosage 行。")
+  pik_edges <- retained[gene_name == "PIK3CA"]
+  fail_if(nrow(pik_edges) != 2L ||
+            !setequal(pik_edges$event_type, c("relative_cnv", "amplification")),
+          "Figure 1 PIK3CA–Factor1 必须包含 relative CNV 与 amplification 两行。")
+  pik_evidence <- rbindlist(list(
+    pik_edges[, .(
+      evidence = paste0(event_label, " → Factor1"),
+      association_effect = original_effect,
+      q_value = original_q_value,
+      evidence_class = "event–state"
+    )],
+    pik_driver[, .(
+      evidence = "relative CNV → PIK3CA RNA",
+      association_effect = spearman_rho_relative_cnv,
+      q_value = q_relative_cnv,
+      evidence_class = "CNV–RNA dosage"
+    )]
+  ))
+  pik_evidence[, evidence_label := paste0(
+    evidence, "\nq=", format_q(q_value)
+  )]
+  pik_evidence[, evidence_label := factor(
+    evidence_label, levels = rev(evidence_label[order(association_effect)])
+  )]
+  p_c <- ggplot(
+    pik_evidence,
+    aes(x = association_effect, y = evidence_label, colour = evidence_class)
+  ) +
+    geom_segment(
+      aes(x = 0, xend = association_effect, yend = evidence_label),
+      linewidth = 0.65
+    ) +
+    geom_point(size = 2.45) +
+    geom_point(
+      shape = 21, size = 3.35, fill = NA, colour = "#202020",
+      stroke = 0.55
+    ) +
+    scale_colour_manual(values = c(
+      `event–state` = palette_contract[["signal_blue"]],
+      `CNV–RNA dosage` = palette_contract[["signal_teal"]]
+    )) +
+    coord_cartesian(xlim = c(0, 0.78), clip = "off") +
+    labs(
+      title = "PIK3CA–Factor1 is the leading within-TCGA priority",
+      subtitle = paste(
+        "Amplification and relative CNV provide complementary estimates",
+        "from one CNV event family"
+      ),
+      x = "Association effect from the formal source row", y = NULL,
+      colour = "Evidence"
+    ) +
+    theme_nature_contract() +
+    theme(legend.position = "bottom", axis.text.y = element_text(size = 5.5)) +
+    guides(colour = guide_legend(nrow = 1))
+
+  (p_a | p_b) / p_c +
+    plot_layout(heights = c(1.55, 0.72), widths = c(1.55, 0.82)) +
+    plot_annotation(
+      title = "Representation-overlap-audited event–state bridges",
+      subtitle = paste(
+        "Nine retained associations nominate PIK3CA–Factor1",
+        "as the leading CNV-linked axis"
+      ),
+      tag_levels = "a"
+    ) &
+    theme(
+      plot.title = element_text(size = 7.3, face = "bold", family = font_family),
+      plot.subtitle = element_text(size = 5.7, colour = "#555555",
+                                   family = font_family),
+      plot.tag = element_text(size = 8, face = "bold", family = font_family)
+    )
+}
+
+build_figure2_positive <- function(x) {
+  focus_factors <- c("Factor1", "Factor3")
+  official <- copy(x$ecms_probabilities)[
+    in_official_78 & eligible_for_primary_association,
+    .(patient_id, official_anchor_label)
+  ]
+  fail_if(nrow(official) != 78L || uniqueN(official$patient_id) != 78L,
+          "Figure 2 主视觉必须且只能使用 official 78。")
+  official <- merge(
+    official,
+    x$factor_scores[, c("patient_id", focus_factors), with = FALSE],
+    by = "patient_id", all.x = TRUE, sort = FALSE
+  )
+  fail_if(anyNA(official[, ..focus_factors]),
+          "Figure 2 official 78 的 Factor1/Factor3 分数不完整。")
+
+  eta <- copy(x$ecms_factor)[
+    is_primary_scope == TRUE & factor %chin% focus_factors
+  ]
+  fail_if(nrow(eta) != 2L || any(eta$n_patients != 78L),
+          "Figure 2 official ECMS Factor1/Factor3 统计行不完整。")
+  eta[, factor_panel := paste0(
+    factor, "\nη²=", sprintf("%.3f", eta_squared),
+    "; q=", format_q(anova_q_value)
+  )]
+  eta[, factor_panel := factor(factor_panel, levels = eta$factor_panel)]
+
+  score_long <- melt(
+    official,
+    id.vars = c("patient_id", "official_anchor_label"),
+    measure.vars = focus_factors,
+    variable.name = "factor", value.name = "factor_score"
+  )
+  score_long <- merge(
+    score_long, eta[, .(factor, factor_panel)],
+    by = "factor", all.x = TRUE, sort = FALSE
+  )
+  score_long[, official_anchor_label := factor(
+    official_anchor_label, levels = paste0("ECMS", 1:4)
+  )]
+  ecms_palette <- c(
+    ECMS1 = "#9AB9D9", ECMS2 = "#6CAFA7",
+    ECMS3 = "#D4A16A", ECMS4 = "#B49AC8"
+  )
+  p_a <- ggplot(
+    score_long,
+    aes(x = official_anchor_label, y = factor_score, fill = official_anchor_label)
+  ) +
+    geom_violin(
+      scale = "width", trim = FALSE, alpha = 0.58,
+      colour = "#6E7378", linewidth = 0.28
+    ) +
+    geom_boxplot(
+      width = 0.18, outlier.shape = NA, fill = "white",
+      colour = "#303438", linewidth = 0.32
+    ) +
+    geom_jitter(
+      width = 0.10, height = 0, size = 0.52, alpha = 0.52,
+      colour = "#303438"
+    ) +
+    facet_wrap(~factor_panel, nrow = 1, scales = "free_y") +
+    scale_fill_manual(values = ecms_palette) +
+    labs(
+      title = "Factor1 and Factor3 vary continuously across official ECMS anchors",
+      subtitle = "Independent patient points; official anchor labels are explanatory context",
+      x = NULL, y = "MOFA factor score", fill = "Official ECMS"
+    ) +
+    theme_nature_contract() +
+    theme(legend.position = "none")
+
+  eta[, factor := factor(factor, levels = rev(focus_factors))]
+  p_b <- ggplot(eta, aes(x = eta_squared, y = factor)) +
+    geom_segment(
+      aes(x = 0, xend = eta_squared, yend = factor),
+      colour = palette_contract[["signal_blue"]], linewidth = 0.70
+    ) +
+    geom_point(
+      aes(size = -log10(anova_q_value)),
+      colour = palette_contract[["signal_blue"]]
+    ) +
+    geom_text(
+      aes(label = paste0("η²=", sprintf("%.3f", eta_squared),
+                         "\nq=", format_q(anova_q_value))),
+      hjust = -0.12, family = font_family, size = 1.72
+    ) +
+    scale_size_continuous(range = c(2.0, 3.2), guide = "none") +
+    coord_cartesian(xlim = c(0, 0.43), clip = "off") +
+    labs(
+      title = "ECMS explanatory increment",
+      x = "Eta-squared", y = NULL
+    ) +
+    theme_nature_contract() +
+    theme(plot.margin = margin(2.2, 8, 2.2, 2.2, unit = "mm"))
+
+  formal_t2 <- unique(x$integrated_axis_edges[
+    edge_class == "TCGA_ECMS_adjusted_factor_PROGENy" &
+      evidence_tier == "T2" &
+      source_node %chin% focus_factors,
+    .(factor = source_node, pathway = target_node)
+  ])
+  pathway <- merge(
+    x$ecms_adjusted[
+      is_primary_scope == TRUE & factor %chin% focus_factors
+    ],
+    formal_t2,
+    by = c("factor", "pathway"), all = FALSE, sort = FALSE
+  )
+  fail_if(!nrow(pathway) || any(pathway$n_patients != 78L),
+          "Figure 2 缺少 official78 的正式 T2 ECMS-adjusted pathway 行。")
+  setorder(pathway, factor, incremental_q_value, -partial_r_squared, pathway)
+  pathway <- pathway[, head(.SD, 5L), by = factor]
+  pathway[, ci_low := factor_beta_standardized -
+    1.96 * factor_standard_error]
+  pathway[, ci_high := factor_beta_standardized +
+    1.96 * factor_standard_error]
+  pathway[, pathway_label := paste0(
+    pathway, " · q=", format_q(incremental_q_value)
+  )]
+  pathway_label_order <- pathway[
+    order(factor, factor_beta_standardized), unique(pathway_label)
+  ]
+  pathway[, pathway_label := factor(
+    pathway_label,
+    levels = rev(pathway_label_order)
+  )]
+  p_c <- ggplot(
+    pathway,
+    aes(
+      x = factor_beta_standardized, y = pathway_label,
+      colour = factor, shape = factor
+    )
+  ) +
+    geom_vline(xintercept = 0, colour = "#AEB3B8", linewidth = 0.30) +
+    geom_errorbar(
+      aes(xmin = ci_low, xmax = ci_high),
+      orientation = "y", width = 0.15, linewidth = 0.38
+    ) +
+    geom_point(aes(size = partial_r_squared), stroke = 0.35) +
+    facet_wrap(~factor, scales = "free_y", nrow = 1) +
+    scale_colour_manual(values = c(
+      Factor1 = palette_contract[["signal_teal"]],
+      Factor3 = palette_contract[["signal_blue"]]
+    )) +
+    scale_shape_manual(values = c(Factor1 = 16, Factor3 = 17)) +
+    scale_size_continuous(range = c(1.7, 4.0), guide = "none") +
+    labs(
+      title = "ECMS-adjusted pathway associations",
+      subtitle = "Top formal T2 rows per factor; point size = partial R²",
+      x = "Standardized adjusted beta", y = NULL,
+      colour = "Factor", shape = "Factor"
+    ) +
+    theme_nature_contract() +
+    theme(
+      legend.position = "bottom", axis.text.y = element_text(size = 5.1)
+    ) +
+    guides(colour = "none", shape = guide_legend(nrow = 1))
+
+  summary_rows <- copy(x$heterogeneity_axes)[factor %chin% focus_factors]
+  fail_if(nrow(summary_rows) != 2L,
+          "Figure 2 缺少 Factor1/Factor3 最终异质性摘要。")
+  summary_cards <- rbindlist(list(
+    summary_rows[, .(
+      factor, field = "Retained\nevent edges",
+      value = as.character(supported_driver_edge_count)
+    )],
+    summary_rows[, .(
+      factor, field = "ECMS\nη²",
+      value = sprintf("%.3f", ecms_eta_squared)
+    )],
+    summary_rows[, .(
+      factor, field = "Adjusted\nT2 pathways",
+      value = as.character(ecms_adjusted_pathway_t2_count)
+    )]
+  ))
+  summary_cards[, factor := factor(factor, levels = rev(focus_factors))]
+  summary_cards[, field := factor(
+    field,
+    levels = c("Retained\nevent edges", "ECMS\nη²",
+               "Adjusted\nT2 pathways")
+  )]
+  p_d <- ggplot(summary_cards, aes(x = field, y = factor)) +
+    geom_tile(fill = "#EEF3F8", colour = "white", linewidth = 0.45) +
+    geom_text(
+      aes(label = value), family = font_family, size = 2.20,
+      colour = "#1F405F", fontface = "bold"
+    ) +
+    labs(
+      title = "Continuous-axis evidence summary",
+      subtitle = "Counts and effects retain their original units",
+      x = NULL, y = NULL
+    ) +
+    theme_nature_contract() +
+    theme(
+      axis.line = element_blank(), axis.ticks = element_blank(),
+      axis.text.x = element_text(size = 5.2)
+    )
+
+  p_a / (p_b | p_c | p_d) +
+    plot_layout(heights = c(1.18, 1), widths = c(0.72, 1.55, 0.78)) +
+    plot_annotation(
+      title = "Factor1 and Factor3 organize continuous ESCC states",
+      subtitle = paste(
+        "ECMS-anchored distributions, effect sizes and adjusted pathways",
+        "in 78 tumors"
+      ),
+      tag_levels = "a"
+    ) &
+    theme(
+      plot.title = element_text(size = 7.3, face = "bold", family = font_family),
+      plot.subtitle = element_text(size = 5.7, colour = "#555555",
+                                   family = font_family),
+      plot.tag = element_text(size = 8, face = "bold", family = font_family)
+    )
+}
+
+build_figure3_positive <- function(x) {
+  focus_genes <- c("GNAS", "ZNF750")
+  summary <- copy(x$cao_summary)[tcga_gene_name %chin% focus_genes]
+  patient <- copy(x$cao_patient)[tcga_gene_name %chin% focus_genes]
+  fail_if(nrow(summary) != 2L || !setequal(summary$tcga_gene_name, focus_genes),
+          "Figure 3 必须包含 GNAS 与 ZNF750 两个正式 Cao 摘要行。")
+
+  patient_strip <- function(gene, include_protein) {
+    gene_patient <- patient[tcga_gene_name == gene]
+    layers <- rbindlist(list(
+      gene_patient[is.finite(median_delta_beta_promoter), .(
+        patient_id = paper_patient_id,
+        layer = "Promoter Δβ",
+        effect = median_delta_beta_promoter
+      )],
+      gene_patient[is.finite(rna_delta_log2_tpm_pc1), .(
+        patient_id = paper_patient_id,
+        layer = "RNA Δlog2 TPM",
+        effect = rna_delta_log2_tpm_pc1
+      )],
+      if (include_protein) {
+        gene_patient[is.finite(protein_log2_tumor_vs_normal), .(
+          patient_id = paper_patient_id,
+          layer = "Protein log2 T/N",
+          effect = protein_log2_tumor_vs_normal
+        )]
+      } else {
+        NULL
+      }
+    ), use.names = TRUE, fill = TRUE)
+    layer_summary <- layers[, .(
+      n = .N, median_effect = median(effect)
+    ), by = layer]
+    layers <- merge(layers, layer_summary, by = "layer", sort = FALSE)
+    layers[, panel := paste0(
+      layer, "\nn=", n, "; median=", sprintf("%+.3f", median_effect)
+    )]
+    panel_order <- c("Promoter Δβ", "RNA Δlog2 TPM", "Protein log2 T/N")
+    observed_order <- vapply(
+      panel_order[panel_order %chin% layers$layer],
+      function(layer_name) unique(layers[layer == layer_name, panel]),
+      character(1)
+    )
+    layers[, panel := factor(panel, levels = observed_order)]
+    ggplot(layers, aes(x = effect, y = 1)) +
+      geom_vline(xintercept = 0, colour = "#AEB3B8", linewidth = 0.30) +
+      geom_jitter(
+        width = 0, height = 0.07, shape = 21, size = 1.5,
+        fill = palette_contract[["signal_blue_light"]],
+        colour = "#3F5368", stroke = 0.35, alpha = 0.82
+      ) +
+      geom_point(
+        data = unique(layers[, .(panel, median_effect)]),
+        aes(x = median_effect, y = 1), inherit.aes = FALSE,
+        shape = 23, size = 2.7, fill = palette_contract[["signal_blue"]],
+        colour = "#202020", stroke = 0.45
+      ) +
+      facet_wrap(~panel, nrow = 1, scales = "free_x") +
+      scale_y_continuous(NULL, breaks = NULL) +
+      labs(
+        title = paste0(gene, " patient-paired layer effects"),
+        subtitle = paste(
+          "Patient-level tumour-minus-paired-non-tumour differences;",
+          "each layer retains its native scale"
+        ),
+        x = "Tumour − paired non-tumour effect"
+      ) +
+      theme_nature_contract() +
+      theme(panel.spacing = grid::unit(2.2, "mm"))
+  }
+
+  p_a <- patient_strip("GNAS", include_protein = TRUE)
+  p_b <- patient_strip("ZNF750", include_protein = FALSE)
+
+  summary_long <- rbindlist(list(
+    summary[, .(
+      gene = tcga_gene_name, layer = "Promoter",
+      effect = promoter_median_paired_delta_beta,
+      q_value = promoter_q_candidate_by_region,
+      availability = promoter_region_evaluation_status
+    )],
+    summary[, .(
+      gene = tcga_gene_name, layer = "RNA",
+      effect = limma_log_fc_pc1,
+      q_value = limma_q_candidate_pc1,
+      availability = "evaluable"
+    )],
+    summary[, .(
+      gene = tcga_gene_name, layer = "Protein",
+      effect = median_patient_log2_tumor_vs_normal,
+      q_value = q_candidate,
+      availability = protein_measurement_status
+    )]
+  ))
+  summary_long[, direction_class := fcase(
+    !is.finite(effect), "unavailable",
+    effect > 0, "positive",
+    effect < 0, "negative",
+    default = "zero"
+  )]
+  summary_long[, cell_label := fcase(
+    !is.finite(effect), "not identified",
+    default = paste0(
+      sprintf("%+.3f", effect), "\nq=", format_q(q_value)
+    )
+  )]
+  summary_long[, gene_label := fcase(
+    gene == "GNAS", "GNAS · three-layer directional hypothesis",
+    gene == "ZNF750", "ZNF750 · falsifiable reverse pattern"
+  )]
+  summary_long[, gene_label := factor(
+    gene_label,
+    levels = rev(c(
+      "GNAS · three-layer directional hypothesis",
+      "ZNF750 · falsifiable reverse pattern"
+    ))
+  )]
+  summary_long[, layer := factor(layer, levels = c("Promoter", "RNA", "Protein"))]
+  p_c <- ggplot(
+    summary_long,
+    aes(x = layer, y = gene_label, fill = direction_class)
+  ) +
+    geom_tile(colour = "white", linewidth = 0.55) +
+    geom_text(
+      aes(label = cell_label), family = font_family, size = 1.75,
+      lineheight = 0.92, colour = "#25292D"
+    ) +
+    scale_fill_manual(values = c(
+      positive = palette_contract[["signal_blue_light"]],
+      negative = "#E2B2AF",
+      zero = palette_contract[["neutral_light"]],
+      unavailable = palette_contract[["neutral_pale"]]
+    )) +
+    labs(
+      title = "Direction summary",
+      subtitle = "Categorical direction only; values use layer-specific units",
+      x = NULL, y = NULL, fill = "Direction"
+    ) +
+    theme_nature_contract() +
+    theme(
+      axis.line = element_blank(), axis.ticks = element_blank(),
+      axis.text.y = element_text(size = 5.1),
+      legend.position = "bottom"
+    ) +
+    guides(fill = guide_legend(nrow = 1))
+
+  p_a / (p_b | p_c) +
+    plot_layout(heights = c(1, 1), widths = c(1.05, 1)) +
+    plot_annotation(
+      title = "Same-patient cross-layer calibration",
+      subtitle = paste(
+        "GNAS supplies a directional three-layer hypothesis;",
+        "ZNF750 preserves an informative reverse pattern"
+      ),
+      tag_levels = "a"
+    ) &
+    theme(
+      plot.title = element_text(size = 7.3, face = "bold", family = font_family),
+      plot.subtitle = element_text(size = 5.7, colour = "#555555",
+                                   family = font_family),
+      plot.tag = element_text(size = 8, face = "bold", family = font_family)
+    )
+}
+
+build_figure4_positive <- function(x) {
+  metabolites <- copy(x$metabolite_candidates)
+  all_expected_tiers <- c(
+    "robust_rank_and_scale_fdr",
+    "conditional_fdr",
+    "nominal_concordant_conditional",
+    "run_order_confounded_conditional"
+  )
+  tier_counts <- metabolites[, .N, by = final_candidate_tier]
+  tier_counts <- merge(
+    data.table(final_candidate_tier = all_expected_tiers),
+    tier_counts, by = "final_candidate_tier", all.x = TRUE, sort = FALSE
+  )
+  tier_counts[is.na(N), N := 0L]
+  expected_counts <- c(83L, 43L, 5L, 4L)
+  fail_if(!identical(as.integer(tier_counts$N), expected_counts),
+          "Figure 4 PR001876 候选层级计数不是 83/43/5/4。")
+  display_tiers <- all_expected_tiers[1:3]
+  tier_counts <- tier_counts[final_candidate_tier %chin% display_tiers]
+  tier_counts[, tier_label := factor(
+    final_candidate_tier,
+    levels = rev(display_tiers),
+    labels = rev(c(
+      "Robust rank + scale FDR",
+      "Conditional FDR",
+      "Nominal concordant"
+    ))
+  )]
+  p_a <- ggplot(
+    tier_counts,
+    aes(x = N, y = tier_label, fill = final_candidate_tier)
+  ) +
+    geom_col(width = 0.64) +
+    geom_text(
+      aes(label = N), hjust = -0.25, family = font_family,
+      size = 2.05, fontface = "bold"
+    ) +
+    scale_fill_manual(values = c(
+      robust_rank_and_scale_fdr = palette_contract[["signal_blue"]],
+      conditional_fdr = palette_contract[["signal_blue_light"]],
+      nominal_concordant_conditional = palette_contract[["neutral_mid"]]
+    )) +
+    coord_cartesian(xlim = c(0, 94), clip = "off") +
+    labs(
+      title = "PR001876 candidate evidence tiers",
+      subtitle = "83 robust LC-MS analysis-features",
+      x = "Retained analysis-features", y = NULL
+    ) +
+    theme_nature_contract() +
+    theme(legend.position = "none")
+
+  robust <- metabolites[
+    final_candidate_tier == "robust_rank_and_scale_fdr"
+  ][order(limma_q_evidence_family, candidate_rank)][1:10]
+  fail_if(nrow(robust) != 10L ||
+            any(robust$platform != "targeted LC-MS") ||
+            any(!robust$scale_sensitivity_direction_stable),
+          "Figure 4 top-10 robust LC-MS 行不完整或混入非稳健/非 LC-MS 行。")
+  robust[, direction_class := fifelse(
+    limma_effect_transformed >= 0, "higher in ESCC", "lower in ESCC"
+  )]
+  robust[, metabolite_label := paste0(
+    short_label(metabolite_name, 27L),
+    " · q=", format_q(limma_q_evidence_family)
+  )]
+  robust[, metabolite_label := factor(
+    metabolite_label,
+    levels = rev(robust[order(limma_effect_transformed), metabolite_label])
+  )]
+  direction_palette <- c(
+    `higher in ESCC` = palette_contract[["signal_blue"]],
+    `lower in ESCC` = palette_contract[["accent_red"]]
+  )
+  p_b <- ggplot(
+    robust,
+    aes(
+      x = limma_effect_transformed, y = metabolite_label,
+      colour = direction_class, shape = direction_class
+    )
+  ) +
+    geom_vline(xintercept = 0, colour = "#AEB3B8", linewidth = 0.30) +
+    geom_errorbar(
+      aes(xmin = limma_ci95_low, xmax = limma_ci95_high),
+      orientation = "y", width = 0.15, linewidth = 0.38
+    ) +
+    geom_point(size = 2.05) +
+    scale_colour_manual(values = direction_palette) +
+    scale_shape_manual(values = c(`higher in ESCC` = 16, `lower in ESCC` = 17)) +
+    labs(
+      title = "Top robust LC-MS effects",
+      subtitle = "Primary-scale effects for source-labelled LC-MS features",
+      x = "Limma effect on the primary transformed scale", y = NULL,
+      colour = "Direction", shape = "Direction"
+    ) +
+    theme_nature_contract() +
+    theme(
+      legend.position = "bottom", axis.text.y = element_text(size = 5.0)
+    ) +
+    guides(colour = "none", shape = guide_legend(nrow = 1))
+
+  alpha <- copy(x$microbiome_alpha)[
+    metric %chin% c("observed_asv", "shannon", "simpson")
+  ]
+  fail_if(nrow(alpha) != 3L || any(alpha$n_pairs != 21L),
+          "Figure 4 paired alpha-diversity 必须为 observed ASV/Shannon/Simpson 三行。")
+  alpha[, metric_label := fcase(
+    metric == "observed_asv", "Observed ASVs",
+    metric == "shannon", "Shannon",
+    metric == "simpson", "Simpson"
+  )]
+  alpha[, panel := paste0(
+    metric_label, "\nq=", format_q(paired_wilcoxon_q)
+  )]
+  alpha[, panel := factor(
+    panel,
+    levels = alpha[match(c("observed_asv", "shannon", "simpson"), metric), panel]
+  )]
+  p_c <- ggplot(
+    alpha,
+    aes(x = median_paired_difference_tumor_minus_normal, y = 1)
+  ) +
+    geom_vline(xintercept = 0, colour = "#AEB3B8", linewidth = 0.30) +
+    geom_errorbar(
+      aes(xmin = effect_ci95_low, xmax = effect_ci95_high),
+      orientation = "y", width = 0.16, linewidth = 0.45,
+      colour = palette_contract[["accent_red"]]
+    ) +
+    geom_point(
+      shape = 17, size = 2.25, colour = palette_contract[["accent_red"]]
+    ) +
+    facet_wrap(~panel, ncol = 1, scales = "free_x") +
+    scale_y_continuous(NULL, breaks = NULL) +
+    labs(
+      title = "Paired diversity shifts",
+      subtitle = "Tumour − paired non-tumour; n=21 pairs",
+      x = "Median paired difference (metric-specific unit)"
+    ) +
+    theme_nature_contract() +
+    theme(panel.spacing = grid::unit(1.5, "mm"))
+
+  genus <- copy(x$microbiome_genus)[
+    candidate_tier == "paired_clr_fdr_supported_no_blank"
+  ][order(paired_wilcoxon_q, -bootstrap_direction_consistency, genus_label)][1:8]
+  fail_if(nrow(genus) != 8L || any(genus$n_pairs != 21L),
+          "Figure 4 top-8 paired CLR genus 行不完整。")
+  genus[, direction_class := fifelse(
+    median_clr_difference_tumor_minus_normal >= 0,
+    "higher in tumour", "lower in tumour"
+  )]
+  genus[, display_label := paste0(
+    short_label(gsub("^g__", "", genus_label), 24L),
+    " · q=", format_q(paired_wilcoxon_q)
+  )]
+  genus[, display_label := factor(
+    display_label,
+    levels = rev(genus[order(
+      median_clr_difference_tumor_minus_normal
+    ), display_label])
+  )]
+  p_d <- ggplot(
+    genus,
+    aes(
+      x = median_clr_difference_tumor_minus_normal,
+      y = display_label, colour = direction_class, shape = direction_class
+    )
+  ) +
+    geom_vline(xintercept = 0, colour = "#AEB3B8", linewidth = 0.30) +
+    geom_errorbar(
+      aes(xmin = clr_effect_ci95_low, xmax = clr_effect_ci95_high),
+      orientation = "y", width = 0.15, linewidth = 0.38
+    ) +
+    geom_point(size = 2.05) +
+    scale_colour_manual(values = c(
+      `higher in tumour` = palette_contract[["signal_blue"]],
+      `lower in tumour` = palette_contract[["accent_red"]]
+    )) +
+    scale_shape_manual(values = c(
+      `higher in tumour` = 16, `lower in tumour` = 17
+    )) +
+    labs(
+      title = "Stable paired genus-level CLR shifts",
+      subtitle = "Top eight formal FDR rows; source labels retained",
+      x = "Median CLR difference (tumour − paired non-tumour)", y = NULL,
+      colour = "Direction", shape = "Direction"
+    ) +
+    theme_nature_contract() +
+    theme(
+      legend.position = "bottom", axis.text.y = element_text(size = 5.0)
+    ) +
+    guides(colour = "none", shape = guide_legend(nrow = 1))
+
+  metabolism_column <- p_a / p_b + plot_layout(heights = c(0.62, 1.38))
+  microbiome_column <- p_c / p_d + plot_layout(heights = c(0.88, 1.12))
+  (metabolism_column | plot_spacer() | microbiome_column) +
+    plot_layout(widths = c(1, 0.055, 1.06)) +
+    plot_annotation(
+      title = "Metabolomic and microbial disease-context signals",
+      subtitle = paste(
+        "PR001876: 83 robust LC-MS features;",
+        "PRJNA766558: paired diversity and genus-level shifts"
+      ),
+      tag_levels = "a"
+    ) &
+    theme(
+      plot.title = element_text(size = 7.3, face = "bold", family = font_family),
+      plot.subtitle = element_text(size = 5.7, colour = "#555555",
+                                   family = font_family),
+      plot.tag = element_text(size = 8, face = "bold", family = font_family)
+    )
+}
+
+build_figure5_positive <- function(x) {
+  retained <- copy(x$leakage_candidate_summary)[countable_for_T3_T4 == TRUE]
+  priority <- copy(x$integrated_drivers)[
+    decision == "strong_patient_level_candidate" &
+      integrated_tier %chin% c("T3", "T4")
+  ]
+  fail_if(nrow(retained) != 9L || uniqueN(retained$gene_name) != 7L,
+          "Figure 5 中心网络必须由 9 条保留边和 7 个基因构成。")
+  fail_if(nrow(priority) != 7L ||
+            nrow(priority[integrated_tier == "T4"]) != 1L ||
+            priority[integrated_tier == "T4", gene_name] != "PIK3CA",
+          "Figure 5 T3/T4 优先级必须为 7 个基因且 PIK3CA 唯一 T4。")
+
+  selected_pathways <- data.table(
+    factor = c(
+      rep("Factor1", 3L), rep("Factor3", 4L)
+    ),
+    pathway = c(
+      "Estrogen", "NFkB", "TNFa",
+      "VEGF", "EGFR", "TGFb", "MAPK"
+    )
+  )
+  pathway <- merge(
+    x$ecms_adjusted[is_primary_scope == TRUE],
+    selected_pathways,
+    by = c("factor", "pathway"), all = FALSE, sort = FALSE
+  )
+  formal_t2 <- unique(x$integrated_axis_edges[
+    edge_class == "TCGA_ECMS_adjusted_factor_PROGENy" &
+      evidence_tier == "T2",
+    .(factor = source_node, pathway = target_node)
+  ])
+  pathway <- merge(
+    pathway, formal_t2,
+    by = c("factor", "pathway"), all = FALSE, sort = FALSE
+  )
+  fail_if(nrow(pathway) != 7L,
+          "Figure 5 预选 Factor1/Factor3 adjusted pathway T2 行不完整。")
+
+  nodes <- data.table(
+    node_id = c(
+      paste0("GENE:", c(
+        "PIK3CA", "NFE2L2", "SMARCA4", "TP53",
+        "PTCH1", "NOTCH1", "KMT2D"
+      )),
+      "RNA:PIK3CA",
+      "STATE:Factor1", "STATE:Factor7", "STATE:Factor3",
+      "ECMS:official78",
+      paste0("PATH:", selected_pathways$pathway)
+    ),
+    label = c(
+      "PIK3CA", "NFE2L2", "SMARCA4", "TP53",
+      "PTCH1", "NOTCH1", "KMT2D",
+      "PIK3CA RNA",
+      "Factor1", "Factor7", "Factor3",
+      "ECMS anchor\n(official 78)",
+      selected_pathways$pathway
+    ),
+    node_type = c(
+      rep("driver", 7L), "RNA",
+      rep("MOFA factor", 3L), "ECMS context",
+      rep("adjusted pathway", 7L)
+    ),
+    x = c(
+      rep(0.06, 7L), 0.28,
+      rep(0.46, 3L), 0.67,
+      rep(0.91, 7L)
+    ),
+    y = c(
+      0.86, 0.70, 0.58, 0.47, 0.31, 0.22, 0.10,
+      0.95,
+      0.70, 0.30, 0.10,
+      0.52,
+      0.92, 0.84, 0.76, 0.36, 0.29, 0.22, 0.15
+    )
+  )
+  nodes[, tier := fcase(
+    node_id == "GENE:PIK3CA", "T4",
+    node_type == "driver", "T3",
+    node_type == "MOFA factor", "T3",
+    default = "T2"
+  )]
+
+  add_edge_coordinates <- function(edges) {
+    output <- merge(
+      edges,
+      nodes[, .(source = node_id, x_source = x, y_source = y)],
+      by = "source", all.x = TRUE, sort = FALSE
+    )
+    output <- merge(
+      output,
+      nodes[, .(target = node_id, x_target = x, y_target = y)],
+      by = "target", all.x = TRUE, sort = FALSE
+    )
+    fail_if(anyNA(output[, .(x_source, y_source, x_target, y_target)]),
+            "Figure 5 中心网络存在无法定位的节点。")
+    output
+  }
+
+  event_edges <- retained[, .(
+    source = paste0("GENE:", gene_name),
+    target = paste0("STATE:", reference_factor),
+    edge_class = "retained event–state",
+    event_type,
+    effect = original_effect,
+    q_value = original_q_value,
+    direction = fifelse(original_effect >= 0, "positive", "negative")
+  )]
+  event_edges <- add_edge_coordinates(event_edges)
+
+  pik_driver <- priority[gene_name == "PIK3CA"]
+  dosage_edge <- add_edge_coordinates(data.table(
+    source = "GENE:PIK3CA",
+    target = "RNA:PIK3CA",
+    edge_class = "CNV–RNA dosage",
+    event_type = "relative_cnv",
+    effect = pik_driver$spearman_rho_relative_cnv,
+    q_value = pik_driver$q_relative_cnv,
+    direction = "positive"
+  ))
+
+  context_source <- copy(x$ecms_factor)[
+    is_primary_scope == TRUE & factor %chin% c("Factor1", "Factor3")
+  ]
+  context_edges <- add_edge_coordinates(context_source[, .(
+    source = paste0("STATE:", factor),
+    target = "ECMS:official78",
+    edge_class = "ECMS context",
+    event_type = NA_character_,
+    effect = eta_squared,
+    q_value = anova_q_value,
+    direction = "context"
+  )])
+  pathway_edges <- add_edge_coordinates(pathway[, .(
+    source = paste0("STATE:", factor),
+    target = paste0("PATH:", pathway),
+    edge_class = "ECMS-adjusted pathway",
+    event_type = NA_character_,
+    effect = factor_beta_standardized,
+    q_value = incremental_q_value,
+    direction = fifelse(factor_beta_standardized >= 0, "positive", "negative"),
+    partial_r_squared
+  )])
+
+  edge_palette <- c(
+    positive = palette_contract[["signal_blue"]],
+    negative = palette_contract[["accent_red"]],
+    context = palette_contract[["signal_teal"]]
+  )
+  edge_linetype <- c(positive = "solid", negative = "dashed", context = "dotted")
+  node_palette <- c(
+    driver = tier_palette[["T3"]],
+    RNA = "#BFD8D3",
+    `MOFA factor` = "#AFC8E6",
+    `ECMS context` = "#D3E5E2",
+    `adjusted pathway` = "#E7EEF6"
+  )
+  node_shapes <- c(
+    driver = 21, RNA = 21, `MOFA factor` = 22,
+    `ECMS context` = 23, `adjusted pathway` = 24
+  )
+
+  p_a <- ggplot() +
+    geom_segment(
+      data = event_edges[!grepl("^GENE:PIK3CA$", source)],
+      aes(
+        x = x_source, y = y_source, xend = x_target, yend = y_target,
+        colour = direction, linetype = direction
+      ),
+      linewidth = 0.78, alpha = 0.90
+    ) +
+    geom_curve(
+      data = event_edges[
+        source == "GENE:PIK3CA" & event_type == "amplification"
+      ],
+      aes(
+        x = x_source, y = y_source, xend = x_target, yend = y_target,
+        colour = direction, linetype = direction
+      ),
+      curvature = 0.17, linewidth = 1.12
+    ) +
+    geom_curve(
+      data = event_edges[
+        source == "GENE:PIK3CA" & event_type == "relative_cnv"
+      ],
+      aes(
+        x = x_source, y = y_source, xend = x_target, yend = y_target,
+        colour = direction, linetype = direction
+      ),
+      curvature = -0.17, linewidth = 1.12
+    ) +
+    geom_segment(
+      data = dosage_edge,
+      aes(
+        x = x_source, y = y_source, xend = x_target, yend = y_target,
+        colour = direction, linetype = direction
+      ),
+      linewidth = 0.92
+    ) +
+    geom_segment(
+      data = context_edges,
+      aes(
+        x = x_source, y = y_source, xend = x_target, yend = y_target,
+        colour = direction, linetype = direction
+      ),
+      linewidth = 0.58
+    ) +
+    geom_segment(
+      data = pathway_edges,
+      aes(
+        x = x_source, y = y_source, xend = x_target, yend = y_target,
+        colour = direction, linetype = direction,
+        linewidth = partial_r_squared
+      ),
+      alpha = 0.78
+    ) +
+    geom_point(
+      data = nodes,
+      aes(x = x, y = y, fill = node_type, shape = node_type),
+      size = 2.75, colour = "#303030", stroke = 0.40
+    ) +
+    geom_point(
+      data = nodes[node_id == "GENE:PIK3CA"],
+      aes(x = x, y = y), shape = 21, size = 4.15,
+      fill = NA, colour = "#151515", stroke = 0.65
+    ) +
+    geom_text(
+      data = nodes,
+      aes(x = x, y = y, label = label),
+      family = font_family, size = 1.83, nudge_y = 0.032,
+      lineheight = 0.90, check_overlap = FALSE
+    ) +
+    annotate(
+      "text", x = 0.245, y = 0.855,
+      label = paste0(
+        "relative CNV–F1: ", sprintf("%.3f", retained[
+          gene_name == "PIK3CA" & event_type == "relative_cnv",
+          original_effect
+        ]), "; q=", format_q(retained[
+          gene_name == "PIK3CA" & event_type == "relative_cnv",
+          original_q_value
+        ])
+      ),
+      family = font_family, size = 1.58, colour = "#274F78"
+    ) +
+    annotate(
+      "text", x = 0.255, y = 0.785,
+      label = paste0(
+        "amplification–F1: ", sprintf("%.3f", retained[
+          gene_name == "PIK3CA" & event_type == "amplification",
+          original_effect
+        ]), "; q=", format_q(retained[
+          gene_name == "PIK3CA" & event_type == "amplification",
+          original_q_value
+        ])
+      ),
+      family = font_family, size = 1.58, colour = "#274F78"
+    ) +
+    annotate(
+      "text", x = 0.135, y = 0.985,
+      label = paste0(
+        "CNV–RNA ρ=", sprintf("%.3f", pik_driver$spearman_rho_relative_cnv),
+        "; q=", format_q(pik_driver$q_relative_cnv)
+      ),
+      family = font_family, size = 1.58, colour = "#376C68"
+    ) +
+    annotate(
+      "text", x = 0.57, y = 0.65,
+      label = paste0(
+        "Factor1 ECMS η²=", sprintf("%.3f", context_source[
+          factor == "Factor1", eta_squared
+        ])
+      ),
+      family = font_family, size = 1.52, colour = "#376C68"
+    ) +
+    annotate(
+      "text", x = 0.57, y = 0.36,
+      label = paste0(
+        "Factor3 ECMS η²=", sprintf("%.3f", context_source[
+          factor == "Factor3", eta_squared
+        ])
+      ),
+      family = font_family, size = 1.52, colour = "#376C68"
+    ) +
+    scale_colour_manual(values = edge_palette) +
+    scale_linetype_manual(values = edge_linetype) +
+    scale_linewidth_continuous(range = c(0.28, 0.88), guide = "none") +
+    scale_fill_manual(values = node_palette) +
+    scale_shape_manual(values = node_shapes) +
+    coord_cartesian(xlim = c(0, 0.98), ylim = c(0.04, 1.02), clip = "off") +
+    labs(
+      title = "PIK3CA–Factor1-centred source-internal network",
+      subtitle = paste(
+        "Nine retained event–state edges connect dosage, ECMS context",
+        "and selected adjusted pathways"
+      ),
+      colour = "Association", linetype = "Association",
+      fill = "Node", shape = "Node"
+    ) +
+    theme_void(base_family = font_family, base_size = base_size) +
+    theme(
+      plot.title = element_text(size = base_size + 0.5, face = "bold"),
+      plot.subtitle = element_text(size = base_size - 0.4, colour = "#555555"),
+      legend.position = "bottom", legend.box = "vertical",
+      legend.title = element_text(size = base_size - 0.2, face = "bold"),
+      legend.text = element_text(size = base_size - 0.7),
+      plot.margin = margin(3.5, 4.5, 3.5, 3.5, unit = "mm")
+    ) +
+    guides(
+      colour = guide_legend(nrow = 1), linetype = guide_legend(nrow = 1),
+      fill = "none", shape = "none"
+    )
+
+  priority[, tier_order := match(integrated_tier, c("T3", "T4"))]
+  setorder(priority, -tier_order, -state_supported_edges, gene_name)
+  priority[, gene_factor := factor(gene_name, levels = rev(gene_name))]
+  priority[, tier_label := fifelse(
+    integrated_tier == "T4", "T4 priority", "T3 retained"
+  )]
+  p_b <- ggplot(
+    priority,
+    aes(x = state_supported_edges, y = gene_factor, colour = integrated_tier)
+  ) +
+    geom_segment(
+      aes(x = 0, xend = state_supported_edges, yend = gene_factor),
+      linewidth = 0.68
+    ) +
+    geom_point(size = 2.45) +
+    geom_point(
+      data = priority[integrated_tier == "T4"],
+      shape = 21, size = 3.65, fill = NA, colour = "#151515", stroke = 0.65
+    ) +
+    geom_text(
+      aes(label = tier_label),
+      hjust = -0.18, family = font_family, size = 1.78
+    ) +
+    scale_colour_manual(values = c(
+      T3 = tier_palette[["T3"]], T4 = tier_palette[["T4"]]
+    )) +
+    scale_x_continuous(breaks = 0:2) +
+    coord_cartesian(xlim = c(0, 2.95), clip = "off") +
+    labs(
+      title = "Validation-priority ladder",
+      subtitle = "PIK3CA leads the seven-gene T3/T4 validation set",
+      x = "Retained event–state edges", y = NULL, colour = "Tier"
+    ) +
+    theme_nature_contract() +
+    theme(
+      legend.position = "none",
+      axis.text.y = element_text(size = 5.6, face = "bold")
+    )
+
+  (p_a | p_b) +
+    plot_layout(widths = c(1.72, 0.63)) +
+    plot_annotation(
+      title = "PIK3CA–Factor1 anchors a compact validation-priority network",
+      subtitle = paste(
+        "Seven T3/T4 genes connect retained event–state associations",
+        "with ECMS-aligned pathways"
+      ),
+      tag_levels = "a"
+    ) &
+    theme(
+      plot.title = element_text(size = 7.3, face = "bold", family = font_family),
+      plot.subtitle = element_text(size = 5.7, colour = "#555555",
+                                   family = font_family),
+      plot.tag = element_text(size = 8, face = "bold", family = font_family)
+    )
+}
+
 run_figure_export_bundle <- function(inputs) {
 message("[1/4] 构建 5 张 R-only 主图对象（不重算上游统计）")
 figure_objects <- list(
-  Figure1 = build_figure1(inputs),
-  Figure2 = build_figure2(inputs),
-  Figure3 = build_figure3(inputs),
-  Figure4 = build_figure4(inputs),
-  Figure5 = build_figure5(inputs)
+  Figure1 = build_figure1_positive(inputs),
+  Figure2 = build_figure2_positive(inputs),
+  Figure3 = build_figure3_positive(inputs),
+  Figure4 = build_figure4_positive(inputs),
+  Figure5 = build_figure5_positive(inputs)
 )
 fail_if(!identical(names(figure_objects), figure_specs$figure_id),
         "图对象与冻结 figure_specs 顺序不一致。")
@@ -3629,11 +4790,12 @@ qa_lines <- c(
   paste0("- 最小目标字号：", minimum_text_pt, " pt。"),
   "- SVG 根元素、PDF/PNG/TIFF magic header、文件非空和 stage SHA256 回读：通过。",
   "- 发布事务：20 个图件、过程 QA 和 manifest 使用同盘备份与整包回滚；manifest literal-last。",
-  "- ECMS primary：仅 official 78；extension calibration 2/4 仅作边界。",
-  "- Factor4：最终 T0/HM450 level-factor；图中灰化，不参与主门禁。",
-  "- Cao：promoter Δβ、RNA logFC、protein log2(T/N) 独立尺度；缺失未填 0。",
-  "- PR001876 与 PRJNA766558：无共享患者连接；整合网络没有箭头。",
-  "- Figure 5 决策矩阵保留全部 12 个 strong drivers，包括无通过边的行。",
+  "- Figure 1：正文主视觉恰含 9 条 countable_for_T3_T4 边；完整 41 边及执行/对齐诊断留在正式源表。",
+  "- Figure 2：仅 official 78 的 Factor1/Factor3；extension 16 与 k 稳定性诊断未进入正文主视觉。",
+  "- Factor4：正式整合表继续冻结为 T0/HM450 level-factor；正文主视觉不展示。",
+  "- Figure 3：GNAS/ZNF750 的 promoter、RNA、protein 独立尺度；缺失未填 0；无跨层连接线。",
+  "- Figure 4：PR001876 层级计数为 83/43/5/4；PR001876 与 PRJNA766558 无共享患者连接。",
+  "- Figure 5：中心网络含 9 条 retained event–factor 边与 7 个 T3/T4 基因；完整 12 行裁决留在 results/；所有关联线无箭头。",
   "- structural_status 已通过；visual_qa_status=pending_reopened_review。",
   "- 视觉 QA 尚需在最终尺寸重新打开 PNG/TIFF/SVG/PDF，由人工检查标签重叠、裁切和可读性；当前不宣称视觉完成。",
   "- 原始数据、ResearchDataHub、正式上游结果和投稿包未修改。"
