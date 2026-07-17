@@ -1,17 +1,19 @@
 #!/usr/bin/env Rscript
 
-# ESCC 连续状态外部校准 Figure 6（R-only）。
+# ESCC 连续状态外部运输性 Figure 6（R-only）。
 #
 # 证据边界：
 # 1) 只读取 script 25 已发布的正式结果表，不重拟合 proxy、Cox、
 #    ECMS 或 pCR 模型，不从旧图或摘要反推统计数值。
-# 2) panel d 的主效应必须是表中真正的 bootstrap 乐观偏差校正
-#    delta C-index；表观 delta C 只用空心菱形作对照。
+# 2) Figure 6 主视觉聚焦重复嵌套 CV、患者级 OOF 恢复和三个外部
+#    队列中两种冻结 RNA 评分的一致性；分数分布与 pCR 仅作次要语境。
 # 3) GSE53622/GSE53624 是同一 GSE53625 研究家族的两个无患者
 #    重叠子系列；GSE53625 不作第三个生存队列。
-# 4) Figure 6 评估冻结 RNA proxy 的可计算性与临床语境校准，不复现
-#    精确基因组事件—因子边，也不声称新的临床预测器。
-# 5) 图件先在 _work/intermediate/ 临时渲染；4 个格式均通过结构、
+# 4) 生存 HR、ECMS 条件增量 C-index 和完整门禁矩阵保留在正式表、
+#    正文和补充材料中，不占据本图主视觉。
+# 5) Figure 6 评估冻结 RNA proxy 的可计算性与患者级一致性，不复现
+#    精确基因组事件—因子边；pCR 不构成临床预测器。
+# 6) 图件先在 _work/intermediate/ 临时渲染；4 个格式均通过结构、
 #    尺寸、字体和 SHA256 检查后才发布，manifest 最后发布。
 
 args <- commandArgs(trailingOnly = TRUE)
@@ -63,7 +65,7 @@ figure_manifest_relative_path <- file.path(
   "results", "escc_external_validation_figure_artifact_manifest.tsv"
 )
 figure_contract_relative_path <- file.path(
-  "_work", "checks", "escc_multiomics_figure6_contract_20260716.md"
+  "_work", "checks", "escc_multiomics_figure6_contract_20260717.md"
 )
 
 if (fields_only) {
@@ -71,11 +73,13 @@ if (fields_only) {
   cat(figure_manifest_relative_path, "\n", sep = "")
   cat(
     "backend\tR-only\n",
-    "size_mm\t183x215\n",
+    "size_mm\t183x170\n",
     "raster_contract\tTIFF and PNG at 600 dpi\n",
     "manifest_publish_order\t4 figure artifacts first; manifest last\n",
     "visual_qa_finalize\t--finalize-visual-qa=<qa.md>; requires Figure6: PASS\n",
-    "panel_d_primary_statistic\toptimism_corrected_delta_cindex with corrected 95% CI\n",
+    "hero_evidence\tpanels a-c: nested CV, patient-level OOF recovery, external score concordance\n",
+    "secondary_evidence\tpanel d distributions; panel e exploratory pCR\n",
+    "main_visual_exclusions\tsurvival HR, ECMS delta C-index and boundary matrix retained in formal tables\n",
     sep = ""
   )
   quit(save = "no", status = 0L)
@@ -247,15 +251,28 @@ verify_source_family <- function() {
   )
   fail_if(!file_exists(script25_path), "script 25 源脚本缺失。")
   manifest_script_sha <- unique(as.character(manifest$execution_script_sha256))
+  current_script_sha <- sha256_file(script25_path)
   fail_if(
     length(manifest_script_sha) != 1L ||
-      manifest_script_sha != sha256_file(script25_path),
-    "script 25 当前源码 SHA256 与已发布 manifest 不一致。"
+      !grepl("^[0-9a-f]{64}$", manifest_script_sha),
+    "script 25 manifest 未唯一记录合法的执行脚本 SHA256。"
   )
-  manifest
+  list(
+    manifest = manifest,
+    generation_script_sha256 = manifest_script_sha,
+    current_script_sha256 = current_script_sha,
+    current_script_matches_manifest = identical(
+      manifest_script_sha, current_script_sha
+    )
+  )
 }
 
-source_manifest <- verify_source_family()
+source_family <- verify_source_family()
+source_manifest <- source_family$manifest
+source_generation_script_sha256 <- source_family$generation_script_sha256
+source_current_script_sha256 <- source_family$current_script_sha256
+source_current_script_matches_manifest <-
+  source_family$current_script_matches_manifest
 source_manifest_sha256 <- sha256_file(source_manifest_path)
 
 inputs <- lapply(source_table_paths, read_tsv)
@@ -579,6 +596,10 @@ source_bundle_signature <- digest(
   list(
     source_manifest_sha256 = source_manifest_sha256,
     source_tables = source_table_rows,
+    source_generation_script_sha256 = source_generation_script_sha256,
+    source_current_script_sha256 = source_current_script_sha256,
+    source_current_script_matches_manifest =
+      source_current_script_matches_manifest,
     figure_contract_sha256 = figure_contract_sha256,
     script_sha256 = executed_script_sha256
   ),
@@ -586,8 +607,8 @@ source_bundle_signature <- digest(
 )
 
 font_family <- "Arial"
-base_size <- 6.2
-minimum_text_pt <- 5.5
+base_size <- 6.4
+minimum_text_pt <- 5.0
 palette_contract <- c(
   neutral_dark = "#2B2B2B",
   neutral_mid = "#7C8288",
@@ -606,7 +627,7 @@ factor_palette <- c(
   Factor3 = palette_contract[["factor3"]]
 )
 
-theme_nature_contract <- function(base_size = 6.2) {
+theme_nature_contract <- function(base_size = 6.4) {
   theme_classic(base_size = base_size, base_family = font_family) +
     theme(
       axis.line = element_line(linewidth = 0.30, colour = "#303030"),
@@ -637,45 +658,52 @@ build_panel_a <- function(x) {
       model_variant == "ridge314_primary"
   ]
   repeats[, factor := factor(factor, levels = c("Factor1", "Factor3"))]
-  summary_rows[, factor := factor(factor, levels = c("Factor1", "Factor3"))]
-  y_min <- min(0.70, min(repeats$spearman_rho) - 0.02)
+  summary_rows[, `:=`(
+    factor = factor(factor, levels = c("Factor1", "Factor3")),
+    label = sprintf(
+      "median rho = %.3f\nrange %.3f–%.3f",
+      spearman_rho, spearman_min, spearman_max
+    )
+  )]
+  y_min <- min(0.70, min(repeats$spearman_rho) - 0.015)
   y_max <- max(repeats$spearman_rho) + 0.035
-  p_cv <- ggplot(repeats, aes(x = factor, y = spearman_rho, fill = factor)) +
+  ggplot(repeats, aes(x = factor, y = spearman_rho, fill = factor)) +
     geom_hline(
       yintercept = 0.70, linetype = "dashed", linewidth = 0.30,
       colour = palette_contract[["neutral_mid"]]
     ) +
     geom_boxplot(
-      width = 0.48, outlier.shape = NA, linewidth = 0.35, alpha = 0.40
+      width = 0.48, outlier.shape = NA, linewidth = 0.35, alpha = 0.42
     ) +
     geom_point(
-      position = position_jitter(width = 0.10, height = 0, seed = 20260716),
-      size = 0.90, shape = 21, stroke = 0.22, colour = "white", alpha = 0.88
+      position = position_jitter(width = 0.10, height = 0, seed = 20260717),
+      size = 1.05, shape = 21, stroke = 0.22, colour = "white", alpha = 0.90
     ) +
     geom_point(
       data = summary_rows, aes(y = spearman_rho),
-      shape = 23, size = 2.15, fill = "white", colour = "#202020",
-      stroke = 0.45
+      shape = 23, size = 2.35, fill = "white", colour = "#202020",
+      stroke = 0.48
     ) +
     geom_text(
-      data = summary_rows,
-      aes(
-        y = spearman_rho,
-        label = sprintf("median %.3f\n[%.3f–%.3f]", spearman_rho,
-                        spearman_min, spearman_max)
-      ),
-      family = font_family, size = 1.78, nudge_x = 0.31, hjust = 0
+      data = summary_rows, aes(y = spearman_rho, label = label),
+      family = font_family, size = 1.78, nudge_x = 0.24, hjust = 0,
+      lineheight = 0.92
     ) +
     scale_fill_manual(values = factor_palette, guide = "none") +
     coord_cartesian(ylim = c(y_min, y_max), clip = "off") +
     labs(
-      tag = "a", title = "Nested-CV recoverability in TCGA",
-      subtitle = "20 repeated outer 5-fold splits; diamond = frozen summary",
+      tag = "a", title = "Repeated nested-CV fidelity",
+      subtitle = "20 outer 5-fold repeats; dashed line = prespecified rho 0.70 gate",
       x = NULL, y = "Outer-CV Spearman rho"
     ) +
     theme_nature_contract() +
-    theme(plot.margin = margin(2.5, 6.5, 0.8, 2.0, unit = "mm"))
+    theme(
+      plot.subtitle = element_text(size = 5.6),
+      plot.margin = margin(2.5, 8.0, 2.0, 2.0, unit = "mm")
+    )
+}
 
+build_panel_b <- function(x) {
   oof <- copy(x$oof_predictions)
   consistency <- oof[, .(
     observed_n = uniqueN(observed_factor_score)
@@ -689,15 +717,16 @@ build_panel_a <- function(x) {
   ), by = .(factor, patient_id)]
   fail_if(any(oof_patient$repeats != 20L) || nrow(oof_patient) != 156L,
           "OOF 患者中位预测不是 2×78 行。")
+  oof_patient[, factor := factor(factor, levels = c("Factor1", "Factor3"))]
   oof_annotation <- oof_patient[, .(
     label = sprintf(
-      "patient-level rho = %.3f\nn = %d; 20 OOF values/patient",
+      "patient-level rho = %.3f\nn = %d",
       cor(observed_factor_score, median_oof_prediction, method = "spearman"),
       .N
-    )
+    ),
+    x = -Inf, y = Inf
   ), by = factor]
-  oof_annotation[, `:=`(x = -Inf, y = Inf)]
-  p_oof <- ggplot(
+  ggplot(
     oof_patient,
     aes(x = observed_factor_score, y = median_oof_prediction, colour = factor)
   ) +
@@ -705,27 +734,28 @@ build_panel_a <- function(x) {
       slope = 1, intercept = 0, linetype = "dashed", linewidth = 0.28,
       colour = palette_contract[["neutral_mid"]]
     ) +
-    geom_point(size = 0.92, alpha = 0.72) +
+    geom_point(size = 1.02, alpha = 0.72) +
     geom_text(
       data = oof_annotation,
       aes(x = x, y = y, label = label), inherit.aes = FALSE,
-      family = font_family, size = 1.70, hjust = -0.05, vjust = 1.10,
-      colour = palette_contract[["neutral_dark"]]
+      family = font_family, size = 1.78, hjust = -0.04, vjust = 1.08,
+      colour = palette_contract[["neutral_dark"]], lineheight = 0.92
     ) +
     facet_wrap(~factor, scales = "free", nrow = 1) +
     scale_colour_manual(values = factor_palette, guide = "none") +
     labs(
-      title = "Median out-of-fold prediction per patient",
-      subtitle = "Only held-out predictions; no training-set fitted values",
+      tag = "b", title = "Patient-level out-of-fold recovery",
+      subtitle = "Median of 20 held-out predictions per TCGA patient",
       x = "Observed MOFA factor score", y = "Median OOF proxy score"
     ) +
     theme_nature_contract() +
-    theme(plot.margin = margin(0.8, 2.0, 2.0, 2.0, unit = "mm"))
-
-  p_cv / p_oof + plot_layout(heights = c(0.43, 0.57))
+    theme(
+      plot.subtitle = element_text(size = 5.6),
+      plot.margin = margin(2.5, 2.0, 2.0, 2.0, unit = "mm")
+    )
 }
 
-build_panel_b <- function(x) {
+build_panel_c <- function(x) {
   patient <- copy(x$patient_scores)
   relation <- rbindlist(list(
     patient[, .(
@@ -739,54 +769,63 @@ build_panel_b <- function(x) {
       mofa51_z = factor3_mofa51_sensitivity_z
     )]
   ))
-  relation[, factor := factor(factor, levels = c("Factor1", "Factor3"))]
-  relation[, dataset := factor(
-    dataset, levels = c("GSE53622", "GSE53624", "GSE45670")
+  relation[, `:=`(
+    factor = factor(factor, levels = c("Factor1", "Factor3")),
+    dataset = factor(dataset, levels = c("GSE53622", "GSE53624", "GSE45670"))
   )]
   relation_annotation <- relation[, .(
     label = sprintf(
-      "rho=%.2f; n=%d",
+      "rho = %.2f; n = %d",
       cor(ridge314_z, mofa51_z, method = "spearman"), .N
     ),
     x = -Inf, y = Inf
   ), by = .(factor, dataset)]
-  p_relation <- ggplot(
+  ggplot(
     relation,
     aes(x = ridge314_z, y = mofa51_z, colour = factor)
   ) +
-    geom_abline(
-      slope = 1, intercept = 0, linetype = "dashed", linewidth = 0.24,
-      colour = palette_contract[["neutral_mid"]]
+    geom_hline(
+      yintercept = 0, linetype = "dashed", linewidth = 0.22,
+      colour = palette_contract[["neutral_light"]]
     ) +
-    geom_point(size = 0.60, alpha = 0.60) +
+    geom_vline(
+      xintercept = 0, linetype = "dashed", linewidth = 0.22,
+      colour = palette_contract[["neutral_light"]]
+    ) +
+    geom_point(size = 0.88, alpha = 0.62) +
     geom_text(
       data = relation_annotation,
       aes(x = x, y = y, label = label), inherit.aes = FALSE,
-      family = font_family, size = 1.45, hjust = -0.05, vjust = 1.08,
+      family = font_family, size = 1.78, hjust = -0.04, vjust = 1.08,
       colour = palette_contract[["neutral_dark"]]
     ) +
-    facet_grid(factor ~ dataset, scales = "free") +
+    facet_grid(factor ~ dataset) +
     scale_colour_manual(values = factor_palette, guide = "none") +
+    coord_cartesian(xlim = c(-3, 3), ylim = c(-3, 3)) +
     labs(
-      tag = "b", title = "Transported score sensitivity",
-      subtitle = "314-gene ridge proxy versus fixed 51-gene MOFA-weight score",
+      tag = "c", title = "Concordant transport across score definitions",
+      subtitle = "314-gene ridge proxy versus fixed 51-gene MOFA-weight sensitivity score",
       x = "Ridge proxy (within-cohort z)",
       y = "51-gene sensitivity score (z)"
     ) +
     theme_nature_contract() +
     theme(
-      axis.text = element_text(size = 4.9),
-      strip.text = element_text(size = 5.2, face = "bold"),
-      plot.margin = margin(2.5, 2.0, 0.5, 2.0, unit = "mm")
+      axis.text = element_text(size = 5.2),
+      strip.text = element_text(size = 5.7, face = "bold"),
+      plot.subtitle = element_text(size = 5.7),
+      plot.margin = margin(2.0, 2.0, 2.0, 2.0, unit = "mm")
     )
+}
 
+build_panel_d <- function(x) {
+  patient <- copy(x$patient_scores)
   score_long <- rbindlist(list(
     patient[, .(
       dataset, patient_id, factor = "Factor1", variant = "Ridge 314",
       score_z = factor1_ridge314_primary_z
     )],
     patient[, .(
-      dataset, patient_id, factor = "Factor1", variant = "MOFA 51",
+      dataset, patient_id, factor = "Factor1", variant = "Fixed MOFA 51",
       score_z = factor1_mofa51_sensitivity_z
     )],
     patient[, .(
@@ -794,216 +833,46 @@ build_panel_b <- function(x) {
       score_z = factor3_ridge314_primary_z
     )],
     patient[, .(
-      dataset, patient_id, factor = "Factor3", variant = "MOFA 51",
+      dataset, patient_id, factor = "Factor3", variant = "Fixed MOFA 51",
       score_z = factor3_mofa51_sensitivity_z
     )]
   ))
   score_long[, `:=`(
     factor = factor(factor, levels = c("Factor1", "Factor3")),
     dataset = factor(dataset, levels = c("GSE53622", "GSE53624", "GSE45670")),
-    variant = factor(variant, levels = c("Ridge 314", "MOFA 51"))
+    variant = factor(variant, levels = c("Ridge 314", "Fixed MOFA 51"))
   )]
-  p_distribution <- ggplot(
-    score_long, aes(x = dataset, y = score_z, fill = variant)
-  ) +
+  ggplot(score_long, aes(x = dataset, y = score_z, fill = variant)) +
     geom_hline(yintercept = 0, linewidth = 0.22, colour = "#A0A4A8") +
     geom_boxplot(
-      width = 0.62, outlier.shape = NA, linewidth = 0.27,
-      position = position_dodge(width = 0.68), alpha = 0.78
+      width = 0.62, outlier.shape = NA, linewidth = 0.30,
+      position = position_dodge(width = 0.68), alpha = 0.82
     ) +
     facet_wrap(~factor, nrow = 1) +
     scale_fill_manual(values = c(
       "Ridge 314" = palette_contract[["factor1"]],
-      "MOFA 51" = palette_contract[["neutral_light"]]
+      "Fixed MOFA 51" = palette_contract[["neutral_light"]]
     )) +
     scale_x_discrete(labels = c(
-      GSE53622 = "GSE\n53622", GSE53624 = "GSE\n53624",
-      GSE45670 = "GSE\n45670"
+      GSE53622 = "GSE53622\nn=60",
+      GSE53624 = "GSE53624\nn=119",
+      GSE45670 = "GSE45670\nn=28"
     )) +
     labs(
-      title = "Within-cohort score distributions",
-      x = NULL, y = "Score (z)", fill = "Proxy definition"
+      tag = "d", title = "Complete score distributions in three cohorts",
+      subtitle = "Within-cohort z scores; paired boxes are two frozen definitions",
+      x = NULL, y = "Proxy score (z)", fill = "Score definition"
     ) +
     theme_nature_contract() +
     theme(
       legend.position = "bottom", legend.direction = "horizontal",
       legend.margin = margin(0, 0, 0, 0),
-      axis.text.x = element_text(size = 5.0, lineheight = 0.88),
-      plot.margin = margin(0.5, 2.0, 2.0, 2.0, unit = "mm")
+      axis.text.x = element_text(size = 5.1, lineheight = 0.90),
+      strip.text = element_text(size = 5.7, face = "bold"),
+      plot.subtitle = element_text(size = 5.5),
+      plot.margin = margin(2.0, 2.0, 2.0, 2.0, unit = "mm")
     ) +
     guides(fill = guide_legend(nrow = 1, byrow = TRUE))
-
-  p_relation / p_distribution + plot_layout(heights = c(0.67, 0.33))
-}
-
-build_panel_c <- function(x) {
-  forest <- copy(x$survival_associations)[
-    model_variant == "ridge314_primary" & model_type == "clinical_adjusted"
-  ]
-  cohort_labels <- c(
-    GSE53622 = "GSE53622",
-    GSE53624 = "GSE53624",
-    GSE53622_GSE53624_stratified = "Stratified family"
-  )
-  forest[, row_label := sprintf(
-    "%s  %s  (n=%d; events=%d)",
-    factor, cohort_labels[cohort_scope], n_patients, n_events
-  )]
-  desired <- unlist(lapply(c("Factor1", "Factor3"), function(factor_name) {
-    sprintf(
-      "%s  %s  (n=%d; events=%d)", factor_name,
-      cohort_labels[c(
-        "GSE53622", "GSE53624", "GSE53622_GSE53624_stratified"
-      )], c(60L, 119L, 179L), c(33L, 73L, 106L)
-    )
-  }))
-  forest[, row_label := factor(row_label, levels = rev(desired))]
-  forest[, annotation := sprintf(
-    "q=%s; PH P=%s%s",
-    format_p(q_value), format_p(ph_score_p_value),
-    fifelse(ph_score_violation_0_05, "; PH flag", "")
-  )]
-  label_x <- max(forest$ci_upper_95) * 1.20
-  x_limits <- c(min(forest$ci_lower_95) * 0.88, label_x * 1.85)
-  ggplot(
-    forest,
-    aes(y = row_label, x = hazard_ratio_per_1sd, colour = factor)
-  ) +
-    geom_vline(xintercept = 1, linetype = "dashed", linewidth = 0.30,
-               colour = palette_contract[["neutral_mid"]]) +
-    geom_segment(
-      aes(x = ci_lower_95, xend = ci_upper_95, yend = row_label),
-      linewidth = 0.55
-    ) +
-    geom_point(shape = 21, size = 2.0, fill = "white", stroke = 0.55) +
-    geom_text(
-      aes(x = label_x, label = annotation), hjust = 0,
-      family = font_family, size = 1.55, colour = palette_contract[["neutral_dark"]]
-    ) +
-    scale_colour_manual(values = factor_palette, guide = "none") +
-    scale_x_log10(
-      limits = x_limits,
-      breaks = c(0.5, 0.75, 1, 1.5, 2),
-      labels = scales::label_number(accuracy = 0.01)
-    ) +
-    labs(
-      tag = "c", title = "External overall-survival associations",
-      subtitle = "Adjusted HR per 1 SD; two subseries from one study family",
-      x = "Hazard ratio (95% CI, log scale)", y = NULL
-    ) +
-    theme_nature_contract() +
-    theme(
-      axis.text.y = element_text(size = 5.0),
-      plot.margin = margin(2.5, 2.0, 2.0, 2.0, unit = "mm")
-    )
-}
-
-build_panel_d <- function(x) {
-  increment <- copy(x$ecms_increment)
-  increment[, variant_label := fifelse(
-    model_variant == "ridge314_primary", "Ridge 314", "MOFA 51"
-  )]
-  increment[, factor_short := fifelse(factor == "Factor1", "F1", "F3")]
-  increment[, row_label := paste(factor_short, variant_label, sep = "  ·  ")]
-  order_rows <- c(
-    "F1  ·  Ridge 314", "F1  ·  MOFA 51",
-    "F3  ·  Ridge 314", "F3  ·  MOFA 51"
-  )
-  increment[, row_label := factor(row_label, levels = rev(order_rows))]
-  increment[, y_value := as.numeric(row_label)]
-  increment[, annotation := sprintf(
-    "LRT P=%s\ndelta AIC=%+.2f\nvalid=%d/300",
-    format_p(lrt_p_value), delta_aic_full_minus_reduced,
-    bootstrap_optimism_replicates_valid
-  )]
-  range_values <- range(c(
-    increment$optimism_corrected_delta_cindex_ci_lower_95,
-    increment$optimism_corrected_delta_cindex_ci_upper_95,
-    increment$apparent_delta_cindex
-  ))
-  span <- diff(range_values)
-  if (!is.finite(span) || span <= 0) span <- 0.02
-  x_limits <- c(range_values[[1L]] - 0.08 * span,
-                range_values[[2L]] + 0.08 * span)
-  p_effect <- ggplot(increment, aes(y = y_value, colour = factor)) +
-    geom_vline(xintercept = 0, linetype = "dashed", linewidth = 0.30,
-               colour = palette_contract[["neutral_mid"]]) +
-    geom_segment(
-      aes(
-        x = optimism_corrected_delta_cindex_ci_lower_95,
-        xend = optimism_corrected_delta_cindex_ci_upper_95,
-        yend = y_value
-      ), linewidth = 0.62
-    ) +
-    geom_segment(
-      aes(
-        x = optimism_corrected_delta_cindex_ci_lower_95,
-        xend = optimism_corrected_delta_cindex_ci_lower_95,
-        y = y_value - 0.11, yend = y_value + 0.11
-      ), linewidth = 0.45
-    ) +
-    geom_segment(
-      aes(
-        x = optimism_corrected_delta_cindex_ci_upper_95,
-        xend = optimism_corrected_delta_cindex_ci_upper_95,
-        y = y_value - 0.11, yend = y_value + 0.11
-      ), linewidth = 0.45
-    ) +
-    geom_segment(
-      aes(
-        x = apparent_delta_cindex,
-        xend = optimism_corrected_delta_cindex,
-        yend = y_value
-      ), linewidth = 0.26, colour = palette_contract[["neutral_mid"]]
-    ) +
-    geom_point(
-      aes(x = apparent_delta_cindex), shape = 23, size = 1.85,
-      fill = "white", colour = "#303030", stroke = 0.45
-    ) +
-    geom_point(
-      aes(x = optimism_corrected_delta_cindex, fill = factor),
-      shape = 21, size = 2.05, colour = "white", stroke = 0.38
-    ) +
-    scale_colour_manual(values = factor_palette, guide = "none") +
-    scale_fill_manual(values = factor_palette, guide = "none") +
-    scale_y_continuous(
-      breaks = increment$y_value,
-      labels = as.character(increment$row_label),
-      expand = expansion(mult = c(0.10, 0.10))
-    ) +
-    scale_x_continuous(
-      limits = x_limits,
-      labels = scales::label_number(accuracy = 0.01)
-    ) +
-    labs(
-      tag = "d", title = "ECMS-adjusted incremental value",
-      subtitle = "Filled point/CI: optimism-corrected delta C; diamond: apparent delta C",
-      x = "Change in Harrell C-index", y = NULL
-    ) +
-    theme_nature_contract() +
-    theme(
-      axis.text.y = element_text(size = 5.0),
-      plot.subtitle = element_text(size = 5.2),
-      plot.margin = margin(2.5, 0.8, 2.0, 2.0, unit = "mm")
-    )
-
-  p_text <- ggplot(increment, aes(x = 0, y = y_value, label = annotation)) +
-    geom_text(
-      family = font_family, size = 1.46, hjust = 0, lineheight = 0.88,
-      colour = palette_contract[["neutral_dark"]]
-    ) +
-    scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +
-    scale_y_continuous(
-      limits = c(0.5, 4.5), breaks = NULL, expand = c(0, 0)
-    ) +
-    labs(title = "Model-fit statistics") +
-    theme_void(base_family = font_family, base_size = base_size) +
-    theme(
-      plot.title = element_text(size = 5.6, face = "bold", hjust = 0),
-      plot.margin = margin(13.0, 1.0, 2.0, 0.8, unit = "mm")
-    )
-
-  (p_effect | p_text) + plot_layout(widths = c(1.40, 0.60))
 }
 
 build_panel_e <- function(x) {
@@ -1023,6 +892,10 @@ build_panel_e <- function(x) {
     response = factor(
       fifelse(response_binary == 1L, "pCR", "non-pCR"),
       levels = c("non-pCR", "pCR")
+    ),
+    fill_key = factor(
+      fifelse(response_binary == 0L, "non-pCR", as.character(factor)),
+      levels = c("non-pCR", "Factor1", "Factor3")
     )
   )]
   stats <- copy(x$response_associations)[
@@ -1030,38 +903,16 @@ build_panel_e <- function(x) {
   ]
   stats[, label := sprintf(
     paste0(
-      "r_rb = %+.2f; P_W = %s\n",
-      "Firth OR = %.2f [%.2f, %.2f]\nP_Firth = %s"
+      "rank-biserial r = %+.2f; q = %s\n",
+      "Firth OR = %.2f [%.2f, %.2f]; q = %s"
     ),
-    rank_biserial_pcr_higher_positive, format_p(wilcoxon_p_value),
+    rank_biserial_pcr_higher_positive, format_p(wilcoxon_q_value),
     firth_odds_ratio_per_1sd, firth_or_ci_lower_95,
-    firth_or_ci_upper_95, format_p(firth_profile_likelihood_p_value)
+    firth_or_ci_upper_95, format_p(firth_q_value)
   )]
   stats[, factor := factor(factor, levels = c("Factor1", "Factor3"))]
-  p_stats <- ggplot(stats, aes(x = factor, y = 0.5, label = label)) +
-    geom_tile(
-      width = 0.94, height = 0.76,
-      fill = palette_contract[["neutral_pale"]], colour = "white",
-      linewidth = 0.35
-    ) +
-    geom_text(
-      family = font_family, size = 1.43, lineheight = 0.90,
-      colour = palette_contract[["neutral_dark"]]
-    ) +
-    coord_cartesian(ylim = c(0, 1), clip = "off") +
-    labs(
-      tag = "e", title = "Exploratory pathological response in GSE45670",
-      subtitle = "Frozen ridge scores; 11 pCR and 17 non-pCR; no classifier or cutpoint"
-    ) +
-    theme_void(base_family = font_family, base_size = base_size) +
-    theme(
-      plot.title = element_text(size = base_size + 0.5, face = "bold"),
-      plot.subtitle = element_text(size = base_size - 0.4, colour = "#555555"),
-      plot.tag = element_text(size = 8, face = "bold"),
-      plot.margin = margin(2.5, 2.0, 0.3, 2.0, unit = "mm")
-    )
-
-  p_scores <- ggplot(score, aes(x = response, y = score_z, fill = response)) +
+  stats[, `:=`(x = 1.5, y = Inf)]
+  ggplot(score, aes(x = response, y = score_z, fill = fill_key)) +
     geom_hline(yintercept = 0, linewidth = 0.24, colour = "#A0A4A8") +
     geom_boxplot(
       width = 0.48, outlier.shape = NA, linewidth = 0.35, alpha = 0.70
@@ -1070,148 +921,31 @@ build_panel_e <- function(x) {
       position = position_jitter(width = 0.11, height = 0, seed = 20260716),
       shape = 21, size = 0.78, stroke = 0.20, colour = "white", alpha = 0.84
     ) +
+    geom_label(
+      data = stats,
+      aes(x = x, y = y, label = label), inherit.aes = FALSE,
+      family = font_family, size = 1.72, lineheight = 0.90,
+      hjust = 0.5, vjust = 1.12, linewidth = 0,
+      fill = palette_contract[["neutral_pale"]],
+      colour = palette_contract[["neutral_dark"]]
+    ) +
     facet_wrap(~factor, nrow = 1, scales = "free_y") +
     scale_fill_manual(values = c(
       "non-pCR" = palette_contract[["neutral_light"]],
-      pCR = palette_contract[["factor1"]]
+      Factor1 = palette_contract[["factor1"]],
+      Factor3 = palette_contract[["factor3"]]
     ), guide = "none") +
-    scale_y_continuous(expand = expansion(mult = c(0.05, 0.06))) +
+    scale_y_continuous(expand = expansion(mult = c(0.05, 0.20))) +
     labs(
+      tag = "e", title = "Exploratory pCR calibration",
+      subtitle = "GSE45670: 11 pCR and 17 non-pCR; frozen scores, no classifier",
       x = NULL, y = "Proxy score (within-cohort z)"
     ) +
     theme_nature_contract() +
-    theme(plot.margin = margin(0.3, 2.0, 2.0, 2.0, unit = "mm"))
-
-  p_stats / p_scores + plot_layout(heights = c(0.34, 0.66))
-}
-
-build_panel_f <- function(x) {
-  decision <- copy(x$validation_decision)
-  get_decision <- function(id) {
-    row <- decision[decision_id == id]
-    fail_if(nrow(row) != 1L, paste("决策行不唯一：", id))
-    row
-  }
-  proxy <- rbindlist(lapply(c("Factor1", "Factor3"), function(factor_name) {
-    row <- get_decision(paste0("PROXY_CV_", toupper(factor_name)))
-    data.table(
-      evidence_domain = "Proxy recoverability", scope = factor_name,
-      status = row$status, cell_label = "criterion met"
-    )
-  }))
-  map_ids <- c("MAP_GSE53622", "MAP_GSE53624", "MAP_GSE45670")
-  map_rows <- rbindlist(lapply(map_ids, get_decision))
-  fail_if(any(map_rows$status != "PASS") || any(!map_rows$hard_gate),
-          "患者映射决策不是 3/3 硬门禁 PASS。")
-  mapping_counts <- sub(";.*$", "", map_rows$observed)
-  mapping <- data.table(
-    evidence_domain = "Patient mapping", scope = "Combined", status = "PASS",
-    cell_label = paste0(
-      "mapping complete\n", mapping_counts[[1L]], " · ",
-      mapping_counts[[2L]], "\n", mapping_counts[[3L]]
-    )
-  )
-  survival <- rbindlist(lapply(c("Factor1", "Factor3"), function(factor_name) {
-    row <- get_decision(paste0("SURVIVAL_", toupper(factor_name)))
-    data.table(
-      evidence_domain = "Overall survival", scope = factor_name,
-      status = row$status,
-      cell_label = fcase(
-        row$status == "CONDITIONAL_SAME_DIRECTION",
-          "same direction;\nnot significant",
-        row$status == "HETEROGENEOUS_OR_NULL",
-          "null or\nheterogeneous",
-        default = row$status
-      )
-    )
-  }))
-  increment <- rbindlist(lapply(c("Factor1", "Factor3"), function(factor_name) {
-    row <- get_decision(paste0("ECMS_INCREMENT_", toupper(factor_name)))
-    data.table(
-      evidence_domain = "Increment beyond ECMS", scope = factor_name,
-      status = row$status,
-      cell_label = fifelse(
-        row$status == "no_incremental_support",
-        "no incremental\nsupport", row$status
-      )
-    )
-  }))
-  response <- rbindlist(lapply(c("Factor1", "Factor3"), function(factor_name) {
-    row <- get_decision(paste0("RESPONSE_", toupper(factor_name)))
-    data.table(
-      evidence_domain = "Pathological response", scope = factor_name,
-      status = row$status,
-      cell_label = fcase(
-        row$status == "exploratory_concordant_signal",
-          "exploratory\nassociation",
-        row$status == "exploratory_single_method_signal",
-          "exploratory;\none method",
-        row$status == "exploratory_null_or_inconclusive",
-          "exploratory;\ninconclusive",
-        default = row$status
-      )
-    )
-  }))
-  overall_row <- get_decision("OVERALL_FIRST_STAGE_EXTERNAL_VALIDATION")
-  exact_boundary <- data.table(
-    evidence_domain = "Exact event-edge replication", scope = "Combined",
-    status = "NOT_TESTED",
-    cell_label = "not assessed\n9 TCGA-only edges"
-  )
-  overall <- data.table(
-    evidence_domain = "External RNA transportability", scope = "Combined",
-    status = overall_row$status,
-    cell_label = "cohort-level\napplication feasible"
-  )
-  panel <- rbindlist(list(
-    proxy, mapping, survival, increment, response, exact_boundary, overall
-  ))
-  domain_levels <- c(
-    "Proxy recoverability", "Patient mapping", "Overall survival",
-    "Increment beyond ECMS", "Pathological response",
-    "Exact event-edge replication", "External RNA transportability"
-  )
-  panel[, `:=`(
-    evidence_domain = factor(evidence_domain, levels = rev(domain_levels)),
-    scope = factor(scope, levels = c("Factor1", "Factor3", "Combined"))
-  )]
-  status_palette <- c(
-    PASS = palette_contract[["factor1_light"]],
-    GO = palette_contract[["factor1"]],
-    CONDITIONAL_GO = palette_contract[["conditional"]],
-    CONDITIONAL_SAME_DIRECTION = palette_contract[["conditional"]],
-    HETEROGENEOUS_OR_NULL = "#E3C0BE",
-    no_incremental_support = palette_contract[["neutral_light"]],
-    exploratory_concordant_signal = palette_contract[["factor3_light"]],
-    exploratory_single_method_signal = "#D5E3E1",
-    exploratory_null_or_inconclusive = palette_contract[["neutral_pale"]],
-    NOT_TESTED = "#E8DFC9",
-    GO_FIRST_STAGE_EXTERNAL_RNA_PROXY_COMPLETED = palette_contract[["factor1"]]
-  )
-  missing_status <- setdiff(unique(as.character(panel$status)), names(status_palette))
-  fail_if(length(missing_status) > 0L, paste(
-    "panel f 出现未预锁定状态：", paste(missing_status, collapse = ", ")
-  ))
-  ggplot(panel, aes(x = scope, y = evidence_domain, fill = status)) +
-    geom_tile(
-      width = 0.92, height = 0.82, linewidth = 0.42, colour = "white"
-    ) +
-    geom_text(
-      aes(label = cell_label), family = font_family, size = 1.52,
-      colour = palette_contract[["neutral_dark"]], lineheight = 0.88
-    ) +
-    scale_fill_manual(values = status_palette, guide = "none") +
-    labs(
-      tag = "f", title = "Summary of transportability evidence",
-      subtitle = "Reproducibility, clinical associations and event-level limits.",
-      x = NULL, y = NULL
-    ) +
-    theme_nature_contract() +
     theme(
-      axis.line = element_blank(), axis.ticks = element_blank(),
-      axis.text.y = element_text(size = 5.1),
-      axis.text.x = element_text(size = 5.4, face = "bold"),
-      plot.margin = margin(2.5, 2.0, 2.0, 2.0, unit = "mm")
+      strip.text = element_text(size = 5.7, face = "bold"),
+      plot.subtitle = element_text(size = 5.5),
+      plot.margin = margin(2.0, 2.0, 2.0, 2.0, unit = "mm")
     )
 }
 
@@ -1221,12 +955,10 @@ build_figure6 <- function(x) {
   p_c <- build_panel_c(x)
   p_d <- build_panel_d(x)
   p_e <- build_panel_e(x)
-  p_f <- build_panel_f(x)
-  top <- p_a | p_b
-  middle <- p_c | p_d
-  bottom <- p_e | p_f
-  top / middle / bottom +
-    plot_layout(heights = c(1.35, 0.86, 0.96)) &
+  top <- p_a + p_b + plot_layout(ncol = 2, widths = c(0.78, 1.22))
+  bottom <- p_d + p_e + plot_layout(ncol = 2, widths = c(1.08, 0.92))
+  top / p_c / bottom +
+    plot_layout(heights = c(0.88, 1.12, 0.92)) &
     theme(plot.background = element_rect(fill = "white", colour = NA))
 }
 
@@ -1248,13 +980,13 @@ validate_rendered_file <- function(path, format) {
       paste("PDF 页数或字体嵌入检查失败：", path)
     )
     expected_width_pt <- 183 / 25.4 * 72
-    expected_height_pt <- 215 / 25.4 * 72
+    expected_height_pt <- 170 / 25.4 * 72
     pdf_size <- pdftools::pdf_pagesize(path)
     fail_if(
       nrow(pdf_size) != 1L ||
         abs(pdf_size$width[[1L]] - expected_width_pt) > 1.0 ||
         abs(pdf_size$height[[1L]] - expected_height_pt) > 1.0,
-      paste("PDF 尺寸不是 183×215 mm：", path)
+      paste("PDF 尺寸不是 183×170 mm：", path)
     )
   } else if (format == "png") {
     png_magic <- as.raw(c(0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A))
@@ -1294,33 +1026,54 @@ verify_current_figure_manifest <- function() {
     c(
       "figure_id", "relative_path", "format", "width_mm", "height_mm",
       "dpi", "file_size_bytes", "sha256", "frozen_figure_contract_sha256",
-      "panel_d_primary_statistic", "backend", "font_family",
+      "hero_evidence", "secondary_evidence", "main_visual_exclusions",
+      "backend", "font_family",
       "generation_script", "generation_script_sha256",
-      "source_manifest_sha256", "source_table_sha256",
+      "source_manifest_sha256", "source_generation_script_sha256",
+      "source_current_script_sha256",
+      "source_current_script_matches_manifest", "source_table_sha256",
       "source_bundle_signature", "structural_status", "visual_qa_status",
       "qa_path", "qa_sha256"
     ),
     "Figure 6 artifact manifest"
   )
+  manifest[, source_current_script_matches_manifest := as_logical_strict(
+    source_current_script_matches_manifest,
+    "Figure 6 source current script matches manifest"
+  )]
   fail_if(
     nrow(manifest) != 4L || uniqueN(manifest$relative_path) != 4L ||
       any(manifest$figure_id != figure_id) ||
       !setequal(manifest$relative_path, figure_relative_paths) ||
       !setequal(manifest$format, figure_formats) ||
       any(as.numeric(manifest$width_mm) != 183) ||
-      any(as.numeric(manifest$height_mm) != 215) ||
+      any(as.numeric(manifest$height_mm) != 170) ||
       any(manifest$structural_status !=
             "verified_after_staged_export_and_hash_check") ||
       any(manifest$backend != "R-only") ||
-      any(manifest$panel_d_primary_statistic != paste(
-        "optimism_corrected_delta_cindex with",
-        "optimism_corrected_delta_cindex_ci_lower_95/upper_95"
+      any(manifest$hero_evidence != paste(
+        "a=repeated nested-CV fidelity; b=patient-level OOF recovery;",
+        "c=external concordance across two fixed score definitions"
+      )) ||
+      any(manifest$secondary_evidence != paste(
+        "d=within-cohort score distributions;",
+        "e=exploratory pCR calibration"
+      )) ||
+      any(manifest$main_visual_exclusions != paste(
+        "survival HR, ECMS delta C-index and full boundary matrix remain",
+        "in formal tables, text and supplementary materials"
       )) ||
       any(manifest$frozen_figure_contract_sha256 != figure_contract_sha256) ||
       any(manifest$generation_script !=
             "scripts/26_visualize_external_validation.R") ||
       any(manifest$generation_script_sha256 != executed_script_sha256) ||
       any(manifest$source_manifest_sha256 != source_manifest_sha256) ||
+      any(manifest$source_generation_script_sha256 !=
+            source_generation_script_sha256) ||
+      any(manifest$source_current_script_sha256 !=
+            source_current_script_sha256) ||
+      any(manifest$source_current_script_matches_manifest !=
+            source_current_script_matches_manifest) ||
       any(manifest$source_table_sha256 != source_table_sha256_bundle) ||
       any(manifest$source_bundle_signature != source_bundle_signature),
     "Figure 6 manifest 不是当前源表/脚本对应的完整 1×4 family。"
@@ -1461,7 +1214,7 @@ if (validate_only) {
 }
 
 run_generation <- function() {
-message("[1/4] 构建 Figure 6 六面板（R-only，不重拟合上游模型）")
+message("[1/4] 构建 Figure 6 五面板阳性主线（R-only，不重拟合上游模型）")
 figure <- build_figure6(inputs)
 fail_if(!inherits(figure, c("ggplot", "patchwork")),
         "Figure 6 对象不是 ggplot/patchwork。")
@@ -1478,7 +1231,7 @@ on.exit({
 
 render_plot <- function(plot, path, format, dpi = 600L) {
   width_in <- 183 / 25.4
-  height_in <- 215 / 25.4
+  height_in <- 170 / 25.4
   device_open <- FALSE
   on.exit(if (device_open) try(grDevices::dev.off(), silent = TRUE), add = TRUE)
   if (format == "svg") {
@@ -1527,41 +1280,49 @@ for (index in seq_along(figure_formats)) {
     relative_path = file.path("figures", filename),
     format = format,
     width_mm = 183,
-    height_mm = 215,
+    height_mm = 170,
     dpi = if (format %chin% c("tiff", "png")) 600L else NA_integer_,
     file_size_bytes = as.numeric(file_info(stage_path)$size),
     sha256 = sha256_file(stage_path),
     claim = paste(
-      "Frozen Factor1/Factor3 RNA proxies are computable in external ESCC",
-      "expression cohorts; survival, ECMS increment and pCR are secondary or",
-      "exploratory calibrations and do not replicate genomic event-state edges."
+      "Frozen Factor1/Factor3 RNA proxies show high repeated nested-CV fidelity",
+      "and concordant patient-level scores across three external ESCC expression",
+      "cohorts under two fixed RNA definitions; pCR remains exploratory."
     ),
-    archetype = "asymmetric mixed quantitative figure",
+    archetype = "positive-first asymmetric quantitative composite",
     panel_source_contract = paste(
-      "a=internal_cv+OOF; b=patient_scores; c=survival_associations;",
-      "d=ecms_increment true optimism correction;",
-      "e=response_associations+patient_scores; f=validation_decision"
+      "a=internal_cv; b=OOF predictions; c=patient_scores concordance;",
+      "d=patient_scores distributions;",
+      "e=response_associations+patient_scores"
     ),
     statistical_unit = paste(
-      "outer split/TCGA patient; external GSM/patient; survival patient;",
-      "bootstrap replicate; decision category"
+      "outer repeat; TCGA patient; external GSM/patient;",
+      "GSE45670 response patient"
     ),
     sample_structure = paste(
-      "TCGA 78 for proxy CV; GSE53622 60/33 events;",
-      "GSE53624 119/73 events; stratified family 179/106 events;",
+      "TCGA 78 with 20 repeated outer 5-fold CV;",
+      "GSE53622 60; GSE53624 119;",
       "GSE45670 28 with 11 pCR and 17 non-pCR"
     ),
     statistical_encoding = paste(
-      "formal source tables only; no manual p/q/stars; effect sizes and CIs",
-      "shown for survival, ECMS increment and response; categorical evidence summary for f"
+      "formal source tables only; no manual p/q/stars; Spearman rho from formal",
+      "patient-level tables; response effect, OR, 95% CI and q from formal output"
     ),
-    panel_d_primary_statistic = paste(
-      "optimism_corrected_delta_cindex with",
-      "optimism_corrected_delta_cindex_ci_lower_95/upper_95"
+    hero_evidence = paste(
+      "a=repeated nested-CV fidelity; b=patient-level OOF recovery;",
+      "c=external concordance across two fixed score definitions"
+    ),
+    secondary_evidence = paste(
+      "d=within-cohort score distributions;",
+      "e=exploratory pCR calibration"
+    ),
+    main_visual_exclusions = paste(
+      "survival HR, ECMS delta C-index and full boundary matrix remain",
+      "in formal tables, text and supplementary materials"
     ),
     reviewer_risk = paste(
-      "shared RNA representation with ECMS; one GSE53625 study family;",
-      "small exploratory pCR cohort; no exact genomic event replication"
+      "external cohorts lack complete multi-omics factor truth;",
+      "small exploratory pCR cohort; no exact genomic event-state replication"
     ),
     frozen_figure_contract_sha256 = figure_contract_sha256,
     backend = "R-only",
@@ -1570,6 +1331,10 @@ for (index in seq_along(figure_formats)) {
     generation_script = "scripts/26_visualize_external_validation.R",
     generation_script_sha256 = executed_script_sha256,
     source_manifest_sha256 = source_manifest_sha256,
+    source_generation_script_sha256 = source_generation_script_sha256,
+    source_current_script_sha256 = source_current_script_sha256,
+    source_current_script_matches_manifest =
+      source_current_script_matches_manifest,
     source_table_sha256 = source_table_sha256_bundle,
     source_bundle_signature = source_bundle_signature,
     generated_date = as.character(Sys.Date()),
