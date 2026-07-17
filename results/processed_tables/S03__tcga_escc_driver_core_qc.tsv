@@ -1,0 +1,11 @@
+scope	observed	status
+cohort	95	pass
+matrix	60623	pass
+matrix	12682	pass
+matrix	6134	pass
+clinical	1.00-5.00	pass
+method	>=5/96 patients	pass
+method	>=10% amplification or homozygous deletion	pass
+method	strong: rho>=0.30 and BH q<=0.10; conditional: rho>=0.30, p<=0.05 and scale-stable	pass
+software	6095	pass
+software	96	pass

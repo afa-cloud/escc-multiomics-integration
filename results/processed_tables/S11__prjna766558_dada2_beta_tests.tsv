@@ -1,0 +1,3 @@
+distance	n_samples	n_pairs	permanova_f	permanova_r2	restricted_permutation_p	permutation_scheme	permutation_seed	betadisper_f	betadisper_p	betadisper_permutation_scheme	betadisper_seed	paired_distance_to_centroid_p	restricted_permutation_q
+Bray-Curtis ASV relative abundance	42	21	1.41990704530883	0.0342807878287996	0.024	999 permutations restricted within patient_pair_id	20260724	0.0414646373271284	0.858	999 tissue-label permutations restricted within patient_pair_id	20260725	0.972272990639196	0.024
+Aitchison ASV CLR	42	21	3.32398814483247	0.0767239648787721	0.002	999 permutations restricted within patient_pair_id	20260725	0.0212921310882704	0.892	999 tissue-label permutations restricted within patient_pair_id	20260726	1	0.004

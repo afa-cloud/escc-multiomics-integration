@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software or the processed results, please cite the associated article and archived release."
+title: "ESCC layered public multi-omics integration: analysis code and processed results"
+type: software
+authors:
+  - family-names: Yang
+    given-names: Haoshui
+    orcid: "https://orcid.org/0009-0008-6805-3893"
+    affiliation: "The First Affiliated Hospital of Xinjiang Medical University"
+  - family-names: Ma
+    given-names: Yuqing
+    affiliation: "The First Affiliated Hospital of Xinjiang Medical University"
+version: 1.0.0
+date-released: 2026-07-17
+repository-code: "https://github.com/afa-cloud/escc-multiomics-integration"
+keywords:
+  - esophageal squamous cell carcinoma
+  - multi-omics
+  - tumor heterogeneity
+  - public data
+  - reproducible bioinformatics
+license: MIT
+

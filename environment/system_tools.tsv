@@ -1,0 +1,10 @@
+tool	purpose	configuration
+aria2c	parallel public-data download	ARIA2C or PATH
+curl	HTTP/FTP download	PATH
+bedtools	genomic interval operations	BEDTOOLS or PATH/environment
+prefetch	SRA acquisition	AMP_ENV_PREFIX
+vdb-validate	SRA integrity validation	AMP_ENV_PREFIX
+fasterq-dump	SRA to FASTQ conversion	ESCC_AMPLICON_ENV
+pigz	parallel gzip compression	ESCC_AMPLICON_ENV
+seqkit	FASTQ integrity and read statistics	ESCC_AMPLICON_ENV
+cutadapt	primer and adapter diagnostics	ESCC_AMPLICON_ENV

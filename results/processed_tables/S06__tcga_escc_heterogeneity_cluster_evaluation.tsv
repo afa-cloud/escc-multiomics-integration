@@ -1,0 +1,6 @@
+k	snf_mean_silhouette	snf_silhouette_space	snf_same_space_silhouette_sensitivity	snf_min_cluster_size	mofa_consensus_pac	mofa_mean_silhouette	mofa_min_cluster_size	snf_mofa_adjusted_rand	strong_stability	conditional_stability	composite_rank	selected_for_description	decision
+2	0.121217403944663	fixed_6d_normalized_laplacian_nontrivial	0.651340720435324	38	0.929078014184397	0.106436507948433	34	0.0099336331627812	FALSE	FALSE	15	FALSE	descriptive_only
+3	0.163310227363165	fixed_6d_normalized_laplacian_nontrivial	0.556115257087282	19	0.816746739876459	0.110888174553505	25	0.233098490235083	FALSE	FALSE	10	FALSE	descriptive_only
+4	0.203209788874712	fixed_6d_normalized_laplacian_nontrivial	0.414826200042638	6	0.701441317776253	0.130227608658991	8	0.117347645441841	FALSE	FALSE	10	FALSE	descriptive_only
+5	0.219991954159548	fixed_6d_normalized_laplacian_nontrivial	0.363093423771484	7	0.609700297414779	0.138338010426951	8	0.28938683797409	FALSE	FALSE	4	TRUE	descriptive_only
+6	0.218016054639296	fixed_6d_normalized_laplacian_nontrivial	0.261184208199499	5	0.526424159231297	0.134747639590539	8	0.211557840596242	FALSE	FALSE	6	FALSE	descriptive_only

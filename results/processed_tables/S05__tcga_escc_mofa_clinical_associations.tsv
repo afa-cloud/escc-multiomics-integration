@@ -1,0 +1,25 @@
+factor	endpoint	method	n	effect	p_value	effect_label	q_value	boundary
+Factor1	age_at_index	spearman	94	-0.224301878987823	0.0297529652247096	rho	0.403535941453482	Patient-level exploratory association.
+Factor6	age_at_index	spearman	94	-0.219384246871763	0.0336279951211235	rho	0.403535941453482	Patient-level exploratory association.
+Factor5	age_at_index	spearman	94	-0.187817387773819	0.0698686426081682	rho	0.447262751241344	Patient-level exploratory association.
+Factor8	pathologic_stage	spearman	92	0.186831580407505	0.0745437918735574	rho	0.447262751241344	Patient-level exploratory association.
+Factor2	overall_survival	univariable_cox	93	0.715253659922051	0.0970878283380946	hazard_ratio_per_1SD	0.466021576022854	Univariable exploratory overall-survival association based on 31 events; not a definitive prognostic result.
+Factor8	overall_survival	univariable_cox	93	1.35285035610917	0.118790037795108	hazard_ratio_per_1SD	0.472149179914601	Univariable exploratory overall-survival association based on 31 events; not a definitive prognostic result.
+Factor7	overall_survival	univariable_cox	93	1.32628177142659	0.137710177475092	hazard_ratio_per_1SD	0.472149179914601	Univariable exploratory overall-survival association based on 31 events; not a definitive prognostic result.
+Factor3	pathologic_stage	spearman	92	-0.14830408978505	0.1582892349867	rho	0.4748677049601	Patient-level exploratory association.
+Factor1	pathologic_stage	spearman	92	0.135999498539134	0.196135266352234	rho	0.523027376939292	Patient-level exploratory association.
+Factor4	age_at_index	spearman	94	-0.105562758820778	0.311247638048501	rho	0.737420814223024	Patient-level exploratory association.
+Factor6	pathologic_stage	spearman	92	0.0893508022903657	0.396994616732137	rho	0.737420814223024	Patient-level exploratory association.
+Factor5	pathologic_stage	spearman	92	-0.0870530097697458	0.409295099553206	rho	0.737420814223024	Patient-level exploratory association.
+Factor4	overall_survival	univariable_cox	93	0.86426989817232	0.411847410449733	hazard_ratio_per_1SD	0.737420814223024	Univariable exploratory overall-survival association based on 31 events; not a definitive prognostic result.
+Factor7	age_at_index	spearman	94	-0.0802586488588749	0.441913084621012	rho	0.737420814223024	Patient-level exploratory association.
+Factor5	overall_survival	univariable_cox	93	0.877393514910175	0.46088800888939	hazard_ratio_per_1SD	0.737420814223024	Univariable exploratory overall-survival association based on 31 events; not a definitive prognostic result.
+Factor8	age_at_index	spearman	94	-0.0691361221022566	0.507891808971473	rho	0.76183771345721	Patient-level exploratory association.
+Factor4	pathologic_stage	spearman	92	0.0597338353356577	0.571653109853445	rho	0.807039684498982	Patient-level exploratory association.
+Factor3	overall_survival	univariable_cox	93	0.913752662943398	0.626332315862302	hazard_ratio_per_1SD	0.812612225551416	Univariable exploratory overall-survival association based on 31 events; not a definitive prognostic result.
+Factor3	age_at_index	spearman	94	-0.0483808218477089	0.643318011894871	rho	0.812612225551416	Patient-level exploratory association.
+Factor1	overall_survival	univariable_cox	93	0.949594976052332	0.774976002847111	hazard_ratio_per_1SD	0.929971203416533	Univariable exploratory overall-survival association based on 31 events; not a definitive prognostic result.
+Factor2	age_at_index	spearman	94	-0.0146805782288265	0.88831502463121	rho	0.947311480701769	Patient-level exploratory association.
+Factor7	pathologic_stage	spearman	92	-0.0107961167667295	0.918645683621339	rho	0.947311480701769	Patient-level exploratory association.
+Factor2	pathologic_stage	spearman	92	-0.00948935689813268	0.928465019673445	rho	0.947311480701769	Patient-level exploratory association.
+Factor6	overall_survival	univariable_cox	93	1.01114076691078	0.947311480701769	hazard_ratio_per_1SD	0.947311480701769	Univariable exploratory overall-survival association based on 31 events; not a definitive prognostic result.

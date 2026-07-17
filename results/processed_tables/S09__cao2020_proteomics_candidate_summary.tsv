@@ -1,0 +1,13 @@
+tcga_gene_id	tcga_gene_name	identified_protein_groups	identified_batches	patient_records	quantified_patients	numeric_batch_values	p7_quantified_batches	median_patient_log2_tumor_vs_normal	protein_effect_iqr	positive_patients	negative_patients	p_value	protein_measurement_status	q_candidate	protein_effect_class
+ENSG00000167548.16	KMT2D	0	0	0	0	0	0			0	0		not_identified		layer_missing_not_negative
+ENSG00000148400.12	NOTCH1	0	0	0	0	0	0			0	0		not_identified		layer_missing_not_negative
+ENSG00000141579.7	ZNF750	0	0	0	0	0	0			0	0		not_identified		layer_missing_not_negative
+ENSG00000074181.9	NOTCH3	0	0	0	0	0	0			0	0		not_identified		layer_missing_not_negative
+ENSG00000185920.16	PTCH1	0	0	0	0	0	0			0	0		not_identified		layer_missing_not_negative
+ENSG00000100393.14	EP300	0	0	0	0	0	0			0	0		not_identified		layer_missing_not_negative
+ENSG00000087460.27	GNAS	3	3	10	7	8	2	0.2300707094205	0.41343596736955	4	3	0.446872820710831	quantified	0.446872820710831	higher_in_tumor
+ENSG00000109670.16	FBXW7	0	0	0	0	0	0			0	0		not_identified		layer_missing_not_negative
+ENSG00000121879.6	PIK3CA	1	1	4	0	0	0			0	0		identified_not_quantified		identified_not_quantified_not_negative
+ENSG00000116044.16	NFE2L2	0	0	0	0	0	0			0	0		not_identified		layer_missing_not_negative
+ENSG00000141510.18	TP53	0	0	0	0	0	0			0	0		not_identified		layer_missing_not_negative
+ENSG00000127616.19	SMARCA4	0	0	0	0	0	0			0	0		not_identified		layer_missing_not_negative

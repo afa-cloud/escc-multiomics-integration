@@ -1,0 +1,6 @@
+evidence_tier	evidence_label	operational_definition_english	interpretation_boundary
+T0	Background or not evaluable	Technically unevaluable, non-comparable, missing at the relevant layer, or retained only as background.	Evidence tiers rank public-data support and do not establish causality or clinical utility.
+T1	Exploratory evidence	Within-source directional or descriptive evidence insufficient for a formal candidate axis.	Evidence tiers rank public-data support and do not establish causality or clinical utility.
+T2	Conditional candidate	Single-cohort, within-cohort bridge, small-sample directional, or context-dependent evidence retained conditionally.	Evidence tiers rank public-data support and do not establish causality or clinical utility.
+T3	Robust candidate within the current evidence scope	Patient-level or sensitivity-supported evidence robust within its source but still requiring independent replication.	Evidence tiers rank public-data support and do not establish causality or clinical utility.
+T4	High-priority validation candidate	Cross-layer or cross-source convergence with a falsifiable validation route; this tier denotes priority rather than established causality.	Evidence tiers rank public-data support and do not establish causality or clinical utility.

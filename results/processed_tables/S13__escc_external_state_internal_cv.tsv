@@ -1,0 +1,45 @@
+record_type	model_variant	factor	repeat_id	n	spearman_rho	pearson_r	rmse	median_absolute_error	spearman_min	spearman_max	positive_orientation	outer_folds	inner_folds	selection_rule	summary_statistic	feature_count	rna_squared_weight_mass_fraction
+sensitivity_in_sample_diagnostic	mofa51_fixed_weight_sensitivity	Factor1		78	0.902199066756029	0.864291564524639	0.825832529405678	0.669168669611524			TRUE			fixed_original_MOFA_RNA_weights_no_outcome_fit	in_sample_transparency_diagnostic	51	0.0427614302806563
+outer_repeat	ridge314_primary	Factor1	1	78	0.838212420490901	0.840754909998057	0.676527194872663	0.472984793106652			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	2	78	0.838566496794345	0.853120964349684	0.675399550296484	0.48831370720367			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	3	78	0.840210422488903	0.848595441119459	0.694322897560481	0.488006705887557			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	4	78	0.8407668281086	0.839326334135481	0.694897573887791	0.513665815160668			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	5	78	0.83320476991363	0.848713064499772	0.668501885634429	0.507895771496983			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	6	78	0.835531557050544	0.851623772349323	0.695436518355994	0.48980396118386			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	7	78	0.84107032208298	0.846372914369844	0.684436365353906	0.432459943501693			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	8	78	0.840539207627815	0.847554517727253	0.690651891433059	0.488117287730577			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	9	78	0.836113253834773	0.848738606123235	0.700679762115742	0.539210581231717			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	10	78	0.84015984015984	0.860431510320696	0.675697729245591	0.506098148312552			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	11	78	0.787503635604901	0.796334040874348	0.746007093436178	0.541186923919881			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	12	78	0.837782470693863	0.853876047492722	0.680315512654388	0.499832207637316			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	13	78	0.851945522831599	0.863632349283629	0.666205660009166	0.516416205517746			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	14	78	0.845698605192276	0.837857014779724	0.676785458040908	0.469059781322			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	15	78	0.838288293984496	0.861461694684486	0.666401272014332	0.478181317508387			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	16	78	0.835809759860393	0.84411669437212	0.704051921753262	0.49670364300503			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	17	78	0.845521567040554	0.863326716135438	0.661617480587623	0.500964888872033			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	18	78	0.838389458642623	0.854103089017313	0.681243568243954	0.468207716275395			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	19	78	0.841474980715487	0.851901801598617	0.661595886816652	0.52859001843178			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor1	20	78	0.845420402382428	0.858624309382966	0.670608081602202	0.482747635658333			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat_summary	ridge314_primary	Factor1		78	0.839363168477092	0.850181189236279	0.678550485347648	0.493253802094445	0.787503635604901	0.851945522831599	TRUE	5	5	median_of_20_repeated_outer_5fold_CV	median_with_min_max	314	
+sensitivity_in_sample_diagnostic	mofa51_fixed_weight_sensitivity	Factor3		78	0.825971496857573	0.751033069495562	0.70090186198172	0.527267786167866			TRUE			fixed_original_MOFA_RNA_weights_no_outcome_fit	in_sample_transparency_diagnostic	51	0.0727004410188315
+outer_repeat	ridge314_primary	Factor3	1	78	0.879538183335652	0.860704787444282	0.542056451653876	0.391244376399564			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	2	78	0.877211396198738	0.86196013179228	0.546625793624851	0.427333804936756			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	3	78	0.901263293668357	0.874419850297996	0.509834862088216	0.349743733878442			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	4	78	0.888567129073458	0.856953955756611	0.539989293127719	0.360192120794606			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	5	78	0.88118210903021	0.856098875692149	0.546240682173325	0.420595554458138			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	6	78	0.894788755548249	0.862699205955348	0.535965755923893	0.360545212693817			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	7	78	0.895370452332477	0.871654226275304	0.526311147124502	0.353434376202342			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	8	78	0.895724528635921	0.865335771085349	0.538595109065378	0.38680451454241			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	9	78	0.888541837908926	0.867823981194352	0.527797216866267	0.382181401390146			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	10	78	0.897950151114708	0.87858988074045	0.523800775039454	0.373561115967408			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	11	78	0.865223384210726	0.839769031224597	0.558517854322607	0.397703796342038			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	12	78	0.901212711339293	0.871581216924618	0.535655299523361	0.38422249183932			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	13	78	0.903362460324485	0.875284679765927	0.52375619350482	0.388024986921187			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	14	78	0.906093906093906	0.876714847134016	0.522394722241182	0.363247601460107			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	15	78	0.899821697290052	0.875127902459251	0.521197365538655	0.349684665744975			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	16	78	0.907080261510641	0.872865853854297	0.523268773505821	0.411987851198788			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	17	78	0.89994815311271	0.87948419916958	0.512707803570639	0.386031563965835			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	18	78	0.883508896167124	0.854395649427639	0.543505239596157	0.386069105855216			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	19	78	0.896103896103896	0.874699259315964	0.523031830229358	0.356282356439805			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat	ridge314_primary	Factor3	20	78	0.883989428293226	0.857424028174446	0.536481800908886	0.390298160919072			TRUE	5	5	nested_inner_5fold_lambda.1se	repeat	314	
+outer_repeat_summary	ridge314_primary	Factor3		78	0.895547490484199	0.869702599059485	0.531726258194814	0.385127027902578	0.865223384210726	0.907080261510641	TRUE	5	5	median_of_20_repeated_outer_5fold_CV	median_with_min_max	314	

@@ -1,0 +1,18 @@
+metric	observed	threshold	direction	pass	notes
+exact_label_agreement	0.743589743589744	0.75	>=	FALSE	locked-model predictions on repository-bundled 78 matrix versus GDC TPM reprojection
+cohen_kappa	0.646418857660925	0.6	>=	TRUE	manual Cohen kappa on fixed ECMS1-4 levels
+adjusted_rand_index	0.42084188340795	0.6	>=	FALSE	mclust adjustedRandIndex
+median_class_probability_spearman	0.955275940480782	0.5	>=	TRUE	median of four class-wise Spearman correlations across 78 patients
+diagnostic_recall_ECMS1	0.608695652173913		diagnostic_only		repository-anchor class n=23; small classes do not veto
+diagnostic_recall_ECMS2	0.705882352941177		diagnostic_only		repository-anchor class n=34; small classes do not veto
+diagnostic_recall_ECMS3	0.857142857142857		diagnostic_only		repository-anchor class n=7; small classes do not veto
+diagnostic_recall_ECMS4	1		diagnostic_only		repository-anchor class n=14; small classes do not veto
+class_probability_spearman_ECMS1	0.951921073324648		diagnostic_only		repository-78 anchor prediction versus GDC reprojection probability vector
+class_probability_spearman_ECMS2	0.958630807636917		diagnostic_only		repository-78 anchor prediction versus GDC reprojection probability vector
+class_probability_spearman_ECMS3	0.946577291573611		diagnostic_only		repository-78 anchor prediction versus GDC reprojection probability vector
+class_probability_spearman_ECMS4	0.970148877397508		diagnostic_only		repository-78 anchor prediction versus GDC reprojection probability vector
+official_margin_median	0.197		diagnostic_only		top1-top2 probability margin; no official threshold
+gdc_reprojection_margin_median	0.244		diagnostic_only		top1-top2 probability margin; no official threshold
+margin_spearman	0.656422903045151		diagnostic_only		Spearman correlation of two project-reported margins
+margin_median_absolute_difference	0.079		diagnostic_only		absolute margin difference; descriptive only
+overall_extension_calibration_pass	0	1	all_four_prespecified_criteria	FALSE	repository-78 locked-model anchor predictions are retained; only additional 16 depend on this decision
