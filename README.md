@@ -14,6 +14,8 @@ The workflow integrates public genomic, transcriptomic, DNA-methylation, protein
 - `environment/`: software-package and external-tool inventory.
 - `MANIFEST.tsv`: release file sizes and SHA-256 checksums.
 
+Version 1.0.2 updates the publication figures to a positive-result-first panel structure while preserving the complete statistical boundaries in the processed tables. Figure 1–5 now foreground the nine retained event–state associations, Factor1/Factor3 continuous states, paired cross-layer directions, orthogonal metabolomic/microbiome signals and the PIK3CA–Factor1 priority network. Figure 6 foregrounds internal proxy fidelity, patient-level out-of-fold concordance, cross-cohort score transport and exploratory pCR directions; survival and incremental-discrimination estimates remain in the formal tables.
+
 ## Scientific scope and boundaries
 
 - Public datasets are used for hypothesis generation and calibration; associations are not causal proof.
@@ -34,7 +36,7 @@ Additional optional tool locations can be supplied through `AMP_ENV_PREFIX`, `ES
 
 ## Citation
 
-Citation metadata are provided in `CITATION.cff`. A version-specific Zenodo DOI is associated with the `v1.0.1` archival release.
+Citation metadata are provided in `CITATION.cff`. Version-specific Zenodo DOI metadata should be taken from the GitHub release record corresponding to the cited version.
 
 ## Licenses
 
