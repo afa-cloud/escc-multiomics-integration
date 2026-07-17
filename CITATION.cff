@@ -10,7 +10,7 @@ authors:
   - family-names: Ma
     given-names: Yuqing
     affiliation: "The First Affiliated Hospital of Xinjiang Medical University"
-version: 1.0.0
+version: 1.0.1
 date-released: 2026-07-17
 repository-code: "https://github.com/afa-cloud/escc-multiomics-integration"
 keywords:
@@ -20,4 +20,3 @@ keywords:
   - public data
   - reproducible bioinformatics
 license: MIT
-

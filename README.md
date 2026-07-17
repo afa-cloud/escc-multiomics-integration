@@ -34,11 +34,10 @@ Additional optional tool locations can be supplied through `AMP_ENV_PREFIX`, `ES
 
 ## Citation
 
-Citation metadata are provided in `CITATION.cff`. A version-specific Zenodo DOI is associated with the `v1.0.0` release.
+Citation metadata are provided in `CITATION.cff`. A version-specific Zenodo DOI is associated with the `v1.0.1` archival release.
 
 ## Licenses
 
 - Analysis code: MIT License.
 - Author-generated processed tables: CC BY 4.0 to the extent that rights are held by the authors.
 - Underlying public datasets, reference resources and third-party software remain subject to their original repository terms and licenses.
-
