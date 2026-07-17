@@ -14,7 +14,7 @@ The workflow integrates public genomic, transcriptomic, DNA-methylation, protein
 - `environment/`: software-package and external-tool inventory.
 - `MANIFEST.tsv`: release file sizes and SHA-256 checksums.
 
-Version 1.0.2 updates the publication figures to a positive-result-first panel structure while preserving the complete statistical boundaries in the processed tables. Figure 1–5 now foreground the nine retained event–state associations, Factor1/Factor3 continuous states, paired cross-layer directions, orthogonal metabolomic/microbiome signals and the PIK3CA–Factor1 priority network. Figure 6 foregrounds internal proxy fidelity, patient-level out-of-fold concordance, cross-cohort score transport and exploratory pCR directions; survival and incremental-discrimination estimates remain in the formal tables.
+Version 1.0.3 records Haoshui Yang as the sole author and copyright holder. The analysis code, processed results and publication figures are unchanged from version 1.0.2. Version 1.0.2 introduced the positive-result-first figure structure while preserving complete statistical boundaries in the processed tables.
 
 ## Scientific scope and boundaries
 

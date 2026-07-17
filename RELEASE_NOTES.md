@@ -1,3 +1,11 @@
+# Version 1.0.3
+
+## Authorship metadata
+
+- Records Haoshui Yang as the sole author in `CITATION.cff`.
+- Records Haoshui Yang as the sole copyright holder in `LICENSE`.
+- Leaves the analysis code, processed results and publication figures unchanged from version 1.0.2.
+
 # Version 1.0.2
 
 ## Updated publication figures
